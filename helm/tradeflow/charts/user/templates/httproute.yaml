@@ -8,7 +8,7 @@ spec:
   rules:
     - matches:
         - path:
-            type: Prefix
+            type: PathPrefix
             value: {{ .Values.routePath }}
       backendRefs:
         - name: {{ include "user.fullname" . }}

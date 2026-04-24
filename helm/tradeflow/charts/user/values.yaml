@@ -7,7 +7,7 @@ image:
 
 service:
   type: ClusterIP
-  port: 8080
+  port: 4001
 
 resources:
   limits:
@@ -26,12 +26,12 @@ autoscaling:
 probes:
   liveness:
     path: /api/health
-    port: 8080
+    port: 4001
   readiness:
     path: /api/health
-    port: 8080
+    port: 4001
   startup:
     path: /api/health
-    port: 8080
+    port: 4001
     failureThreshold: 30
     periodSeconds: 10

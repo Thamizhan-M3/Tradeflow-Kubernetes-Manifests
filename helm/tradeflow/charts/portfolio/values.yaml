@@ -2,7 +2,7 @@
 
 image:
   repository: thamizhanm3/tradeflow-portfolio
-  tag: "latest"
+  tag: "v0.0.1"
   pullPolicy: IfNotPresent
 
 service:

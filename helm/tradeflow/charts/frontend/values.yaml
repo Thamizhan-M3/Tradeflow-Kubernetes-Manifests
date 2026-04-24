@@ -2,7 +2,7 @@ replicaCount: 2
 
 image:
   repository: thamizhanm3/tradeflow-frontend
-  tag: "latest"
+  tag: "v0.0.3"
   pullPolicy: IfNotPresent
 
 service:

@@ -2,12 +2,9 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: nfs-storage
-provisioner: nfs.csi.k8s.io
 
-parameters:
-  # optional CSI-specific tuning
-  server: 172.31.30.47
-  share: /var/nfs/tradeflow
+# IMPORTANT: must match your installed provisioner
+provisioner: cluster.local/nfs-storage-nfs-subdir-external-provisioner
 
 reclaimPolicy: Retain
 volumeBindingMode: Immediate

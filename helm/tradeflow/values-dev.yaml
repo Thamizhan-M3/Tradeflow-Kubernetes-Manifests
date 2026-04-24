@@ -53,9 +53,6 @@ portfolio:
       cpu: "100m"
       memory: "128Mi"
 
-# =========================
-# MONGODB (BITNAMI STYLE)
-# =========================
 mongodb:
   architecture: replicaset
   replicaCount: 3
@@ -64,6 +61,12 @@ mongodb:
     enabled: false
 
   replicaSetName: rs0
+
+  image:
+    registry: docker.io
+    repository: bitnami/mongodb
+    tag: 7.0
+    pullPolicy: IfNotPresent
 
   persistence:
     enabled: true
@@ -79,6 +82,7 @@ mongodb:
       memory: "512Mi"
 
   arbiter:
+    enabled: true
     resources:
       limits:
         cpu: "200m"

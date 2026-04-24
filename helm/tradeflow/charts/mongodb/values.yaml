@@ -2,7 +2,7 @@ replicaCount: 3
 
 image:
   repository: mongo
-  tag: "6.0"
+  tag: "7.0"
   pullPolicy: IfNotPresent
 
 service:
@@ -11,11 +11,11 @@ service:
 
 resources:
   limits:
-    cpu: 500m
-    memory: 1Gi
+    cpu: "500m"
+    memory: "1Gi"
   requests:
-    cpu: 250m
-    memory: 512Mi
+    cpu: "250m"
+    memory: "512Mi"
 
 storage:
   size: 10Gi
@@ -23,10 +23,13 @@ storage:
 
 probes:
   liveness:
-    port: 27017
+    initialDelaySeconds: 30
+    periodSeconds: 10
+
   readiness:
-    port: 27017
+    initialDelaySeconds: 20
+    periodSeconds: 10
+
   startup:
-    port: 27017
     failureThreshold: 30
     periodSeconds: 10

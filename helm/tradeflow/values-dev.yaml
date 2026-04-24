@@ -3,28 +3,66 @@ global:
   ingress:
     domain: dev.tradeflow.local
 
+# -------------------------
+# FRONTEND
+# -------------------------
 frontend:
   replicaCount: 2
   resources:
     limits:
-      cpu: 200m
-      memory: 256Mi
+      cpu: "200m"
+      memory: "256Mi"
     requests:
-      cpu: 100m
-      memory: 128Mi
+      cpu: "100m"
+      memory: "128Mi"
 
+# -------------------------
+# MICROSERVICES
+# -------------------------
 user:
   replicaCount: 2
+  resources:
+    limits:
+      cpu: "200m"
+      memory: "256Mi"
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
 
 stock:
   replicaCount: 2
+  resources:
+    limits:
+      cpu: "200m"
+      memory: "256Mi"
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
 
 trading:
   replicaCount: 2
+  resources:
+    limits:
+      cpu: "200m"
+      memory: "256Mi"
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
 
 portfolio:
   replicaCount: 2
+  resources:
+    limits:
+      cpu: "200m"
+      memory: "256Mi"
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
 
+# -------------------------
+# MONGODB
+# -------------------------
 mongodb:
   replicaCount: 3
-  storageSize: 5Gi
+  storage:
+    size: 5Gi

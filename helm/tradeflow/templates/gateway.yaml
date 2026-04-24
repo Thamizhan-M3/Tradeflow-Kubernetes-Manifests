@@ -3,11 +3,27 @@ kind: Gateway
 metadata:
   name: tradeflow-gateway
 spec:
-  gatewayClassName: haproxy
+  gatewayClassName: {{ .Values.gateway.className | default "haproxy" }}
   listeners:
-    - name: http
-      protocol: HTTP
+  - name: http
+    protocol: HTTP
+    port: 80
+    allowedRoutes:
+      namespaces:
+        from: Same
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tradeflow-gateway-external
+spec:
+  type: NodePort
+  selector:
+    # This must match the labels of your Gateway Controller (e.g., Nginx/Envoy)
+    app.kubernetes.io/component: gateway 
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  ports:
+    - protocol: TCP
       port: 80
-      allowedRoutes:
-        namespaces:
-          from: Same
+      targetPort: 80
+      nodePort: {{ .Values.gateway.nodePort }}

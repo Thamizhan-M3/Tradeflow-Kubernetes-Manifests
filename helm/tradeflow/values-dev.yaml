@@ -151,3 +151,7 @@ mongodb:
       requests:
         cpu: "150m"
         memory: "256Mi"
+
+gateway:
+  nodePort: 31864
+  className: haproxy

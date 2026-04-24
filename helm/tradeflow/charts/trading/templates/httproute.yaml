@@ -2,14 +2,16 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
   name: {{ include "trading.fullname" . }}-route
+  namespace: {{ .Release.Namespace }}
 spec:
   parentRefs:
-    - name: tradeflow-gateway
+  - name: tradeflow-gateway
+    namespace: {{ .Release.Namespace }}
   rules:
-    - matches:
-        - path:
-            type: PathPrefix
-            value: {{ .Values.routePath }}
-      backendRefs:
-        - name: {{ include "trading.fullname" . }}
-          port: {{ .Values.service.port }}
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /api/trades
+    backendRefs:
+    - name: {{ include "trading.fullname" . }}
+      port: {{ .Values.service.port }}

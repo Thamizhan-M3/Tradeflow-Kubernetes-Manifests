@@ -7,16 +7,9 @@ image:
   tag: 7.0
   pullPolicy: IfNotPresent
 
-auth:
-  enabled: false
-
 replicaSetName: rs0
 
-service:
-  nameOverride: mongodb
-
 persistence:
-  enabled: true
   storageClass: nfs-storage
   size: 10Gi
 
@@ -28,20 +21,12 @@ resources:
     cpu: 250m
     memory: 512Mi
 
-startupProbe:
-  enabled: true
-  initialDelaySeconds: 20
-  periodSeconds: 10
-  failureThreshold: 30
-
 readinessProbe:
-  enabled: true
   initialDelaySeconds: 30
   periodSeconds: 10
   timeoutSeconds: 5
 
 livenessProbe:
-  enabled: true
   initialDelaySeconds: 60
   periodSeconds: 20
   timeoutSeconds: 5

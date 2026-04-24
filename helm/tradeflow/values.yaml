@@ -9,7 +9,7 @@ global:
 frontend:
   enabled: true
   probes:
-    path: /health
+    path: /
     failureThreshold: 30
     periodSeconds: 10
   service:
@@ -29,6 +29,7 @@ user:
     port: 4001
   env:
     PORT: "4001"
+  routePath: "/api/users"
 
 stock:
   enabled: true
@@ -41,6 +42,7 @@ stock:
     port: 4002
   env:
     PORT: "4002"
+  routePath: "/api/stocks"
 
 trading:
   enabled: true
@@ -53,6 +55,7 @@ trading:
     port: 4003
   env:
     PORT: "4003"
+  routePath: "/api/trades"
 
 portfolio:
   enabled: true
@@ -65,6 +68,7 @@ portfolio:
     port: 4004
   env:
     PORT: "4004"
+  routePath: "/api/portfolio"
 
 mongodb:
   enabled: true

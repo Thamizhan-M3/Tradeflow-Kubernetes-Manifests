@@ -5,13 +5,27 @@ global:
 
 frontend:
   replicaCount: 3
+  image:
+    repository: thamizhanm3/tradeflow-frontend
+    tag: "v0.0.3"
+    pullPolicy: IfNotPresent
   resources:
     limits:
-      cpu: "500m"
-      memory: "512Mi"
-    requests:
-      cpu: "250m"
+      cpu: "200m"
       memory: "256Mi"
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+  autoscaling:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 80
+  env:
+    VITE_USERS_API: "http://tradeflow-dev-user:4001/api"
+    VITE_STOCKS_API: "http://tradeflow-dev-stock:4002/api"
+    VITE_TRADES_API: "http://tradeflow-dev-trading:4003/api"
+    VITE_PORTFOLIO_API: "http://tradeflow-dev-portfolio:4004/api"
 
 user:
   replicaCount: 3
@@ -21,49 +35,85 @@ user:
     pullPolicy: IfNotPresent
   resources:
     limits:
-      cpu: "400m"
-      memory: "512Mi"
-    requests:
       cpu: "200m"
       memory: "256Mi"
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
   autoscaling:
     enabled: true
-    minReplicas: 2
-    maxReplicas: 4
+    minReplicas: 3
+    maxReplicas: 6
     targetCPUUtilizationPercentage: 80
   env:
-    MONGODB_URI: "mongodb://tradeflow-prod-mongodb-0.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-1.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-2.tradeflow-prod-mongodb-headless:27017/user-db?replicaSet=rs0"
-
+    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/user-db?replicaSet=rs0"
+    PORT: "4001"
 
 stock:
   replicaCount: 3
+  image:
+    repository: thamizhanm3/tradeflow-stock
+    tag: "v0.0.1"
+    pullPolicy: IfNotPresent
   resources:
     limits:
-      cpu: "400m"
-      memory: "512Mi"
-    requests:
       cpu: "200m"
       memory: "256Mi"
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+  autoscaling:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 6
+    targetCPUUtilizationPercentage: 80
+  env:
+    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/user-db?replicaSet=rs0"
+    PORT: "4002"
 
 trading:
   replicaCount: 3
+  image:
+    repository: thamizhanm3/tradeflow-trading
+    tag: "v0.0.1"
+    pullPolicy: IfNotPresent
   resources:
     limits:
-      cpu: "400m"
-      memory: "512Mi"
-    requests:
       cpu: "200m"
       memory: "256Mi"
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+  autoscaling:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 6
+    targetCPUUtilizationPercentage: 80
+  env:
+    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/user-db?replicaSet=rs0"
+    PORT: "4003"
 
 portfolio:
   replicaCount: 3
+  image:
+    repository: thamizhanm3/tradeflow-portfolio
+    tag: "v0.0.1"
+    pullPolicy: IfNotPresent
   resources:
     limits:
-      cpu: "400m"
-      memory: "512Mi"
-    requests:
       cpu: "200m"
       memory: "256Mi"
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+  autoscaling:
+    enabled: true
+    minReplicas: 3
+    maxReplicas: 6
+    targetCPUUtilizationPercentage: 80
+  env:
+    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/user-db?replicaSet=rs0"
+    PORT: "4004"
 
 # =========================
 # MONGODB (BITNAMI STYLE)

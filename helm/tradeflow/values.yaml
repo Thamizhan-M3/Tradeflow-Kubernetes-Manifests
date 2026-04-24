@@ -3,20 +3,69 @@ global:
   ingress:
     domain: tradeflow.local
 
-# Default values for subcharts
+# -------------------------
+# MICROSERVICES DEFAULTS
+# -------------------------
 frontend:
   enabled: true
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: "300m"
+      memory: "256Mi"
+    requests:
+      cpu: "150m"
+      memory: "128Mi"
+
 user:
   enabled: true
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: "300m"
+      memory: "256Mi"
+    requests:
+      cpu: "150m"
+      memory: "128Mi"
+
 stock:
   enabled: true
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: "300m"
+      memory: "256Mi"
+    requests:
+      cpu: "150m"
+      memory: "128Mi"
+
 trading:
   enabled: true
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: "300m"
+      memory: "256Mi"
+    requests:
+      cpu: "150m"
+      memory: "128Mi"
+
 portfolio:
   enabled: true
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: "300m"
+      memory: "256Mi"
+    requests:
+      cpu: "150m"
+      memory: "128Mi"
+
 mongodb:
   enabled: true
+
 gateway:
   enabled: true
+
 haproxy:
   enabled: true

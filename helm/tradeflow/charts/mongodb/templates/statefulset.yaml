@@ -3,63 +3,125 @@ kind: StatefulSet
 metadata:
   name: {{ include "mongodb.fullname" . }}
   labels:
-    {{- include "mongodb.selectorLabels" . | nindent 4 }}
+    {{- include "mongodb.labels" . | nindent 4 }}
+
 spec:
   serviceName: {{ include "mongodb.fullname" . }}-headless
   replicas: {{ .Values.replicaCount }}
+
   selector:
     matchLabels:
       {{- include "mongodb.selectorLabels" . | nindent 6 }}
+
   template:
     metadata:
       labels:
         {{- include "mongodb.selectorLabels" . | nindent 8 }}
+
     spec:
+      terminationGracePeriodSeconds: 30
+
       containers:
-        - name: {{ .Chart.Name }}
+        # =========================
+        # MONGODB MAIN CONTAINER
+        # =========================
+        - name: mongodb
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+
           command:
             - "mongod"
             - "--replSet"
             - "rs0"
             - "--bind_ip_all"
+
           ports:
             - name: mongodb
               containerPort: 27017
+
           volumeMounts:
             - name: mongodb-data
               mountPath: /data/db
+
+          # -------------------------
+          # HEALTH PROBES (REALISTIC)
+          # -------------------------
           livenessProbe:
-            tcpSocket:
-              port: {{ .Values.probes.liveness.port }}
+            exec:
+              command:
+                - mongosh
+                - --eval
+                - "db.adminCommand('ping')"
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+
           readinessProbe:
-            tcpSocket:
-              port: {{ .Values.probes.readiness.port }}
+            exec:
+              command:
+                - mongosh
+                - --eval
+                - "db.adminCommand('ping')"
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+
           startupProbe:
-            tcpSocket:
-              port: {{ .Values.probes.startup.port }}
-            failureThreshold: {{ .Values.probes.startup.failureThreshold }}
-            periodSeconds: {{ .Values.probes.startup.periodSeconds }}
+            exec:
+              command:
+                - mongosh
+                - --eval
+                - "db.adminCommand('ping')"
+            failureThreshold: 30
+            periodSeconds: 10
+
+          # -------------------------
+          # KYVERNO COMPLIANT RESOURCES
+          # -------------------------
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+
+        # =========================
+        # INIT CONTAINER (REPLICA SET)
+        # =========================
         - name: init-replica
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          command: ["/bin/bash", "/scripts/init.sh"]
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+          command:
+            - "/bin/bash"
+            - "/scripts/init.sh"
+
           volumeMounts:
             - name: init-script
               mountPath: /scripts
+
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+
+      # =========================
+      # INIT SCRIPT CONFIGMAP
+      # =========================
       volumes:
         - name: init-script
           configMap:
             name: {{ include "mongodb.fullname" . }}-init
             defaultMode: 0755
+
+  # =========================
+  # PERSISTENT STORAGE (NFS)
+  # =========================
   volumeClaimTemplates:
     - metadata:
         name: mongodb-data
       spec:
-        accessModes: [ "ReadWriteOnce" ]
+        accessModes:
+          - ReadWriteOnce
+
         storageClassName: {{ .Values.storage.className }}
+
         resources:
           requests:
             storage: {{ .Values.storage.size }}

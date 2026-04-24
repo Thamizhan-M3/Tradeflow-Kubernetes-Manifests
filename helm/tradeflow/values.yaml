@@ -28,8 +28,23 @@ user:
       cpu: "150m"
       memory: "128Mi"
   env:
-    MONGO_URI: mongodb://tradeflow-mongodb-0.tradeflow-mongodb-headless:27017,tradeflow-mongodb-1.tradeflow-mongodb-headless:27017,tradeflow-mongodb-2.tradeflow-mongodb-headless:27017/user-db?replicaSet=rs0
-
+    MONGODB_URI: mongodb://tradeflow-mongodb-0.tradeflow-mongodb-headless:27017,tradeflow-mongodb-1.tradeflow-mongodb-headless:27017,tradeflow-mongodb-2.tradeflow-mongodb-headless:27017/user-db?replicaSet=rs0
+    PORT: 4001
+  probes:
+    liveness:
+      path: /health
+      port: 4001
+    readiness:
+      path: /health
+      port: 4001
+    startup:
+      path: /health
+      port: 4001
+      failureThreshold: 30
+      periodSeconds: 10
+  service:
+    type: ClusterIP
+    port: 4001
 
 stock:
   enabled: true

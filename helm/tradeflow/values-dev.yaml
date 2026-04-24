@@ -15,6 +15,10 @@ frontend:
 
 user:
   replicaCount: 2
+  image:
+    repository: thamizhanm3/tradeflow-user
+    tag: "v0.0.1"
+    pullPolicy: IfNotPresent
   resources:
     limits:
       cpu: "200m"
@@ -22,9 +26,11 @@ user:
     requests:
       cpu: "100m"
       memory: "128Mi"
-  env:
-    MONGODB_URI: mongodb://tradeflow-mongodb-0.tradeflow-mongodb-headless:27017,tradeflow-mongodb-1.tradeflow-mongodb-headless:27017,tradeflow-mongodb-2.tradeflow-mongodb-headless:27017/user-db?replicaSet=rs0
-    PORT: 4001
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 4
+    targetCPUUtilizationPercentage: 80
 
 
 stock:
@@ -59,25 +65,19 @@ portfolio:
 
 mongodb:
   architecture: replicaset
-
   replicaCount: 3
-
   auth:
     enabled: false
-
   replicaSetName: rs0
-
   image:
     registry: docker.io
     repository: bitnami/mongodb
     tag: latest
     pullPolicy: IfNotPresent
-
   persistence:
     enabled: true
     storageClass: nfs-storage
     size: 5Gi
-
   resources:
     limits:
       cpu: "500m"
@@ -85,7 +85,6 @@ mongodb:
     requests:
       cpu: "250m"
       memory: "512Mi"
-
   arbiter:
     enabled: false
     image:

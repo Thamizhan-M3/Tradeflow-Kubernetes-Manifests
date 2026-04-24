@@ -24,3 +24,6 @@ dependencies:
   - name: mongodb
     version: 14.0.0
     repository: https://charts.bitnami.com/bitnami
+  # - name: redis
+  #   version: 18.3.7
+  #   repository: https://charts.bitnami.com/bitnami

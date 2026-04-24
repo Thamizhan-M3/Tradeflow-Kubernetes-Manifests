@@ -25,13 +25,13 @@ autoscaling:
 
 probes:
   liveness:
-    path: /api/health
+    path: /health
     port: 4001
   readiness:
-    path: /api/health
+    path: /health
     port: 4001
   startup:
-    path: /api/health
+    path: /health
     port: 4001
     failureThreshold: 30
     periodSeconds: 10

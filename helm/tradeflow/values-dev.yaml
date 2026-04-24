@@ -31,6 +31,9 @@ user:
     minReplicas: 2
     maxReplicas: 4
     targetCPUUtilizationPercentage: 80
+  env:
+    MONGODB_URI: mongodb://tradeflow-mongodb-0.tradeflow-mongodb-headless:27017,tradeflow-mongodb-1.tradeflow-mongodb-headless:27017,tradeflow-mongodb-2.tradeflow-mongodb-headless:27017/user-db?replicaSet=rs0
+    PORT: 4001
 
 
 stock:

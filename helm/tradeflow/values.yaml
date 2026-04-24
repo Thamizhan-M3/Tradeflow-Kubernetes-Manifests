@@ -27,9 +27,7 @@ user:
     requests:
       cpu: "150m"
       memory: "128Mi"
-  env:
-    MONGODB_URI: mongodb://tradeflow-mongodb-0.tradeflow-mongodb-headless:27017,tradeflow-mongodb-1.tradeflow-mongodb-headless:27017,tradeflow-mongodb-2.tradeflow-mongodb-headless:27017/user-db?replicaSet=rs0
-    PORT: 4001
+  
   probes:
     liveness:
       path: /health

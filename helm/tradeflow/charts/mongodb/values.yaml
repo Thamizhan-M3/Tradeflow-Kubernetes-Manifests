@@ -1,35 +1,47 @@
+architecture: replicaset
+
 replicaCount: 3
 
 image:
-  repository: mongo
-  tag: "7.0"
+  repository: bitnami/mongodb
+  tag: 7.0
   pullPolicy: IfNotPresent
 
+auth:
+  enabled: false
+
+replicaSetName: rs0
+
 service:
-  type: ClusterIP
-  port: 27017
+  nameOverride: mongodb
+
+persistence:
+  enabled: true
+  storageClass: nfs-storage
+  size: 10Gi
 
 resources:
   limits:
-    cpu: "500m"
-    memory: "1Gi"
+    cpu: 500m
+    memory: 1Gi
   requests:
-    cpu: "250m"
-    memory: "512Mi"
+    cpu: 250m
+    memory: 512Mi
 
-storage:
-  size: 10Gi
-  className: nfs-storage
+startupProbe:
+  enabled: true
+  initialDelaySeconds: 20
+  periodSeconds: 10
+  failureThreshold: 30
 
-probes:
-  liveness:
-    initialDelaySeconds: 30
-    periodSeconds: 10
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
 
-  readiness:
-    initialDelaySeconds: 20
-    periodSeconds: 10
-
-  startup:
-    failureThreshold: 30
-    periodSeconds: 10
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 60
+  periodSeconds: 20
+  timeoutSeconds: 5

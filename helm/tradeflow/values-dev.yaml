@@ -3,9 +3,6 @@ global:
   ingress:
     domain: dev.tradeflow.local
 
-# -------------------------
-# FRONTEND
-# -------------------------
 frontend:
   replicaCount: 2
   resources:
@@ -16,9 +13,6 @@ frontend:
       cpu: "100m"
       memory: "128Mi"
 
-# -------------------------
-# MICROSERVICES
-# -------------------------
 user:
   replicaCount: 2
   resources:
@@ -59,10 +53,28 @@ portfolio:
       cpu: "100m"
       memory: "128Mi"
 
-# -------------------------
-# MONGODB
-# -------------------------
+# =========================
+# MONGODB (BITNAMI STYLE)
+# =========================
 mongodb:
+  architecture: replicaset
+
   replicaCount: 3
-  storage:
+
+  auth:
+    enabled: false
+
+  replicaSetName: rs0
+
+  persistence:
+    enabled: true
+    storageClass: nfs-storage
     size: 5Gi
+
+  resources:
+    limits:
+      cpu: "500m"
+      memory: "1Gi"
+    requests:
+      cpu: "250m"
+      memory: "512Mi"

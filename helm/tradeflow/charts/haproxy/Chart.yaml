@@ -1,0 +1,6 @@
+apiVersion: v2
+name: haproxy
+description: External Ingress Load Balancer
+type: application
+version: 1.0.0
+appVersion: "2.8"

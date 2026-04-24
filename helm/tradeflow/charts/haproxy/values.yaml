@@ -1,0 +1,31 @@
+replicaCount: 1
+
+image:
+  repository: haproxy
+  tag: "2.8"
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 80
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+probes:
+  liveness:
+    path: /health
+    port: 80
+  readiness:
+    path: /health
+    port: 80
+  startup:
+    path: /health
+    port: 80
+    failureThreshold: 30
+    periodSeconds: 10

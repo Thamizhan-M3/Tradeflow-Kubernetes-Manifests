@@ -1,0 +1,22 @@
+global:
+  environment: default
+  ingress:
+    domain: tradeflow.local
+
+# Default values for subcharts
+frontend:
+  enabled: true
+user:
+  enabled: true
+stock:
+  enabled: true
+trading:
+  enabled: true
+portfolio:
+  enabled: true
+mongodb:
+  enabled: true
+gateway:
+  enabled: true
+haproxy:
+  enabled: true

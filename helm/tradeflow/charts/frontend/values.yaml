@@ -1,0 +1,37 @@
+replicaCount: 2
+
+image:
+  repository: tradeflow/frontend
+  tag: "1.0.0"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
+
+probes:
+  liveness:
+    path: /health
+    port: 80
+  readiness:
+    path: /health
+    port: 80
+  startup:
+    path: /health
+    port: 80
+    failureThreshold: 30
+    periodSeconds: 10

@@ -57,11 +57,16 @@ portfolio:
 # MONGODB (BITNAMI STYLE)
 # =========================
 mongodb:
+  architecture: replicaset
   replicaCount: 3
+
+  auth:
+    enabled: false
 
   replicaSetName: rs0
 
   persistence:
+    enabled: true
     storageClass: nfs-storage
     size: 5Gi
 

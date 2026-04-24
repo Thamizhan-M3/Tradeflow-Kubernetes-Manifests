@@ -22,5 +22,5 @@ dependencies:
     version: 1.0.0
     repository: "file://./charts/portfolio"
   - name: mongodb
-    version: 1.0.0
-    repository: "file://./charts/mongodb"
+    version: 14.0.0
+    repository: https://charts.bitnami.com/bitnami

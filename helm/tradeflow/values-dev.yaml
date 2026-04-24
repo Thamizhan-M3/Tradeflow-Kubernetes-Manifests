@@ -14,8 +14,8 @@ frontend:
       cpu: "200m"
       memory: "256Mi"
     requests:
-      cpu: "100m"
-      memory: "128Mi"
+      cpu: "50m"
+      memory: "64Mi"
   autoscaling:
     enabled: true
     minReplicas: 2
@@ -38,8 +38,8 @@ user:
       cpu: "200m"
       memory: "256Mi"
     requests:
-      cpu: "100m"
-      memory: "128Mi"
+      cpu: "50m"
+      memory: "64Mi"
   autoscaling:
     enabled: true
     minReplicas: 2
@@ -61,8 +61,8 @@ stock:
       cpu: "200m"
       memory: "256Mi"
     requests:
-      cpu: "100m"
-      memory: "128Mi"
+      cpu: "50m"
+      memory: "64Mi"
   autoscaling:
     enabled: true
     minReplicas: 2
@@ -83,8 +83,8 @@ trading:
       cpu: "200m"
       memory: "256Mi"
     requests:
-      cpu: "100m"
-      memory: "128Mi"
+      cpu: "50m"
+      memory: "64Mi"
   autoscaling:
     enabled: true
     minReplicas: 2
@@ -105,8 +105,8 @@ portfolio:
       cpu: "200m"
       memory: "256Mi"
     requests:
-      cpu: "100m"
-      memory: "128Mi"
+      cpu: "50m"
+      memory: "64Mi"
   autoscaling:
     enabled: true
     minReplicas: 2

@@ -1,9 +1,6 @@
 ﻿replicaCount: 2
 
-image:
-  repository: thamizhanm3/tradeflow-trading
-  tag: "v0.0.1"
-  pullPolicy: IfNotPresent
+
 
 service:
   type: ClusterIP

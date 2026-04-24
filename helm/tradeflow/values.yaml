@@ -31,36 +31,39 @@ user:
 
 stock:
   enabled: true
-  replicaCount: 1
-  resources:
-    limits:
-      cpu: "300m"
-      memory: "256Mi"
-    requests:
-      cpu: "150m"
-      memory: "128Mi"
+  probes:
+    path: /health
+    failureThreshold: 30
+    periodSeconds: 10
+  service:
+    type: ClusterIP
+    port: 4002
+  env:
+    PORT: "4002"
 
 trading:
   enabled: true
-  replicaCount: 1
-  resources:
-    limits:
-      cpu: "300m"
-      memory: "256Mi"
-    requests:
-      cpu: "150m"
-      memory: "128Mi"
+  probes:
+    path: /health
+    failureThreshold: 30
+    periodSeconds: 10
+  service:
+    type: ClusterIP
+    port: 4003
+  env:
+    PORT: "4003"
 
 portfolio:
   enabled: true
-  replicaCount: 1
-  resources:
-    limits:
-      cpu: "300m"
-      memory: "256Mi"
-    requests:
-      cpu: "150m"
-      memory: "128Mi"
+  probes:
+    path: /health
+    failureThreshold: 30
+    periodSeconds: 10
+  service:
+    type: ClusterIP
+    port: 4004
+  env:
+    PORT: "4004"
 
 mongodb:
   enabled: true

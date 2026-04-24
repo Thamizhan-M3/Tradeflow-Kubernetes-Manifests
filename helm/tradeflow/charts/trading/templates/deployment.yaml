@@ -20,24 +20,24 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: {{ .Values.env.PORT | int }}
               protocol: TCP
-          env:
-            - name: MONGO_URI
-              value: "mongodb://mongodb-0.mongodb-headless:27017,mongodb-1.mongodb-headless:27017,mongodb-2.mongodb-headless:27017/trading-db?replicaSet=rs0"
+          envFrom:
+            - configMapRef:
+                name: {{ include "trading.fullname" . }}-config
           livenessProbe:
             httpGet:
-              path: {{ .Values.probes.liveness.path }}
-              port: {{ .Values.probes.liveness.port }}
+              path: {{ .Values.probes.path }}
+              port: {{ .Values.env.PORT | int }}
           readinessProbe:
             httpGet:
-              path: {{ .Values.probes.readiness.path }}
-              port: {{ .Values.probes.readiness.port }}
+              path: {{ .Values.probes.path }}
+              port: {{ .Values.env.PORT | int }}
           startupProbe:
             httpGet:
-              path: {{ .Values.probes.startup.path }}
-              port: {{ .Values.probes.startup.port }}
-            failureThreshold: {{ .Values.probes.startup.failureThreshold }}
-            periodSeconds: {{ .Values.probes.startup.periodSeconds }}
+              path: {{ .Values.probes.path }}
+              port: {{ .Values.env.PORT | int }}
+            failureThreshold: {{ .Values.probes.failureThreshold }}
+            periodSeconds: {{ .Values.probes.periodSeconds }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

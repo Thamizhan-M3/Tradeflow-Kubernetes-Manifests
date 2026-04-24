@@ -25,6 +25,7 @@ user:
     periodSeconds: 10
   service:
     type: ClusterIP
+    port: 4001
   env:
     PORT: "4001"
 

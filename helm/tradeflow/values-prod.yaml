@@ -156,5 +156,5 @@ mongodb:
         memory: "256Mi"
 
 gateway:
-  nodePort: 31865
+  nodePort: 31871 # Shifted from 31865
   className: haproxy

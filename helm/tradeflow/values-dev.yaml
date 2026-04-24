@@ -1,0 +1,30 @@
+global:
+  environment: dev
+  ingress:
+    domain: dev.tradeflow.local
+
+frontend:
+  replicaCount: 2
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+user:
+  replicaCount: 2
+
+stock:
+  replicaCount: 2
+
+trading:
+  replicaCount: 2
+
+portfolio:
+  replicaCount: 2
+
+mongodb:
+  replicaCount: 3
+  storageSize: 5Gi

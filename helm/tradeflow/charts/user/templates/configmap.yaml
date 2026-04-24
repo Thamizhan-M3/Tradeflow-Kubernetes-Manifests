@@ -5,4 +5,5 @@ metadata:
   labels:
     {{- include "user.selectorLabels" . | nindent 4 }}
 data:
-  MONGO_URI: {{ .Values.env.MONGO_URI | quote }}
+  MONGODB_URI: {{ .Values.env.MONGODB_URI | quote }}
+  PORT: {{ .Values.env.PORT | quote }}

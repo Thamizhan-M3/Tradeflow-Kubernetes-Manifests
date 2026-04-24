@@ -20,13 +20,11 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 4001
+              containerPort: {{ .Values.env.PORT | int }}
               protocol: TCP
           envFrom:
             - configMapRef:
                 name: {{ include "user.fullname" . }}-config
-            # - secretRef:
-            #     name: {{ include "user.fullname" . }}-secret
           livenessProbe:
             httpGet:
               path: {{ .Values.probes.liveness.path }}

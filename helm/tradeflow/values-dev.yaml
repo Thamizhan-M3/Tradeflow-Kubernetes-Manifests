@@ -77,3 +77,12 @@ mongodb:
     requests:
       cpu: "250m"
       memory: "512Mi"
+
+  arbiter:
+    resources:
+      limits:
+        cpu: "200m"
+        memory: "256Mi"
+      requests:
+        cpu: "100m"
+        memory: "128Mi"

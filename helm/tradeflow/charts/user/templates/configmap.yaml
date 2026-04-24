@@ -5,4 +5,4 @@ metadata:
   labels:
     {{- include "user.selectorLabels" . | nindent 4 }}
 data:
-  MONGODB_URI: {{ .Values.env.MONGODB_URI | quote }}
+  MONGODB_URI: "{{ .Values.env.MONGODB_URI | quote }}"

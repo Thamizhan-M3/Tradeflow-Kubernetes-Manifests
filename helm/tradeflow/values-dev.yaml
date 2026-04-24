@@ -82,6 +82,9 @@ mongodb:
       cpu: "250m"
       memory: "512Mi"
 
+  env:
+  MONGO_URI: mongodb://tradeflow-mongodb-0.tradeflow-mongodb-headless:27017,tradeflow-mongodb-1.tradeflow-mongodb-headless:27017,tradeflow-mongodb-2.tradeflow-mongodb-headless:27017/user-db?replicaSet=rs0
+
   arbiter:
     enabled: false
     image:

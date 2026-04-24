@@ -1,0 +1,30 @@
+global:
+  environment: prod
+  ingress:
+    domain: tradeflow.com
+
+frontend:
+  replicaCount: 3
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+
+user:
+  replicaCount: 3
+
+stock:
+  replicaCount: 3
+
+trading:
+  replicaCount: 3
+
+portfolio:
+  replicaCount: 3
+
+mongodb:
+  replicaCount: 3
+  storageSize: 20Gi

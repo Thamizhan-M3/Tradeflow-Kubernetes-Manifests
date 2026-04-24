@@ -1,0 +1,11 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nfs-storage
+provisioner: nfs.csi.k8s.io # Requires NFS CSI driver to be installed
+parameters:
+  server: nfs-server.internal # Replace with actual EC2 IP/DNS
+  share: /var/nfs/tradeflow
+reclaimPolicy: Retain
+volumeBindingMode: Immediate
+allowVolumeExpansion: true

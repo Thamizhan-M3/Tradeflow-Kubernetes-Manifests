@@ -19,30 +19,14 @@ frontend:
 
 user:
   enabled: true
-  replicaCount: 1
-  resources:
-    limits:
-      cpu: "300m"
-      memory: "256Mi"
-    requests:
-      cpu: "150m"
-      memory: "128Mi"
-  
   probes:
-    liveness:
-      path: /health
-      port: 4001
-    readiness:
-      path: /health
-      port: 4001
-    startup:
-      path: /health
-      port: 4001
-      failureThreshold: 30
-      periodSeconds: 10
+    path: /health
+    failureThreshold: 30
+    periodSeconds: 10
   service:
     type: ClusterIP
-    port: 4001
+  env:
+    PORT: "4001"
 
 stock:
   enabled: true

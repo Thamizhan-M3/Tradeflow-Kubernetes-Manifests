@@ -10,8 +10,10 @@ frontend:
   enabled: true
   probes:
     path: /
-    failureThreshold: 30
+    initialDelaySeconds: 60
     periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
   service:
     type: ClusterIP
     port: 80
@@ -22,8 +24,10 @@ user:
   enabled: true
   probes:
     path: /health
-    failureThreshold: 30
+    initialDelaySeconds: 60
     periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
   service:
     type: ClusterIP
     port: 4001
@@ -35,8 +39,10 @@ stock:
   enabled: true
   probes:
     path: /health
-    failureThreshold: 30
+    initialDelaySeconds: 60
     periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
   service:
     type: ClusterIP
     port: 4002
@@ -48,8 +54,10 @@ trading:
   enabled: true
   probes:
     path: /health
-    failureThreshold: 30
+    initialDelaySeconds: 60
     periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
   service:
     type: ClusterIP
     port: 4003
@@ -61,8 +69,10 @@ portfolio:
   enabled: true
   probes:
     path: /health
-    failureThreshold: 30
+    initialDelaySeconds: 60
     periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
   service:
     type: ClusterIP
     port: 4004

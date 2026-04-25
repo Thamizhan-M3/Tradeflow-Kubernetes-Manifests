@@ -9,7 +9,7 @@ global:
 frontend:
   enabled: true
   probes:
-    path: /health
+    path: /
     failureThreshold: 30
     periodSeconds: 10
   service:

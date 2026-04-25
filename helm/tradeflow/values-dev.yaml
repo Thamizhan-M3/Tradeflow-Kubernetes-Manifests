@@ -22,10 +22,10 @@ frontend:
     maxReplicas: 4
     targetCPUUtilizationPercentage: 80
   env:
-    VITE_USERS_API: "http://tradeflow-dev-user:4001/api"
-    VITE_STOCKS_API: "http://tradeflow-dev-stock:4002/api"
-    VITE_TRADES_API: "http://tradeflow-dev-trading:4003/api"
-    VITE_PORTFOLIO_API: "http://tradeflow-dev-portfolio:4004/api"
+    VITE_USERS_API: "http://tradeflow-dev-user.tradeflow-dev.svc.cluster.local:4001"
+    VITE_STOCKS_API: "http://tradeflow-dev-stock.tradeflow-dev.svc.cluster.local:4002"
+    VITE_TRADES_API: "http://tradeflow-dev-trading.tradeflow-dev.svc.cluster.local:4003"
+    VITE_PORTFOLIO_API: "http://tradeflow-dev-portfolio.tradeflow-dev.svc.cluster.local:4004"
 
 user:
   replicaCount: 2

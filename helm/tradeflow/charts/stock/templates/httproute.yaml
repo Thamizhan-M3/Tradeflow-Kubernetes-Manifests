@@ -3,7 +3,7 @@ kind: HTTPRoute
 metadata:
   name: {{ include "stock.fullname" . }}-route
   labels:
-    app.kubernetes.io/part-of: {{ include "stock.fullname" . }}
+    app.kubernetes.io/part-of: {{ .Release.Name }}
     environment: {{ .Values.global.environment }}
 spec:
   parentRefs:

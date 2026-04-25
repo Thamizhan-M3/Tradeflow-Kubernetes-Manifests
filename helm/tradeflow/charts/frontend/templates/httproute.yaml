@@ -12,7 +12,7 @@ spec:
     - matches:
         - path:
             type: PathPrefix
-            value: {{ .Values.frontend.routePath | default "/" }}
+            value: /
       backendRefs:
         - name: {{ include "frontend.fullname" . }}
           port: {{ .Values.service.port }}

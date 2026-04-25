@@ -21,8 +21,9 @@ metadata:
 spec:
   type: NodePort
   selector:
-    # Adjust these based on the output of 'kubectl get pods -n kgateway-system --show-labels'
-    app: kgateway 
+    # REPLACING 'app: kgateway' with the actual labels found in step 1
+    app.kubernetes.io/name: kgateway
+    app.kubernetes.io/instance: kgateway
   ports:
     - protocol: TCP
       port: 80

@@ -13,20 +13,20 @@ spec:
       namespaces:
         from: Same
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ .Release.Name }}-gateway-nodeport
-  # We deploy this service into the namespace where the pods are
-  namespace: envoy-gateway-system
-spec:
-  type: NodePort
-  selector:
-    # These match the labels found in your 'kubectl get pods' output
-    gateway.envoyproxy.io/owning-gateway-name: {{ .Release.Name }}-gateway
-    gateway.envoyproxy.io/owning-gateway-namespace: {{ .Release.Namespace }}
-  ports:
-    - protocol: NodePort
-      port: 80
-      targetPort: 10080
-      nodePort: {{ .Values.gateway.nodePort }}
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: {{ .Release.Name }}-gateway-nodeport
+#   # We deploy this service into the namespace where the pods are
+#   namespace: envoy-gateway-system
+# spec:
+#   type: NodePort
+#   selector:
+#     # These match the labels found in your 'kubectl get pods' output
+#     gateway.envoyproxy.io/owning-gateway-name: {{ .Release.Name }}-gateway
+#     gateway.envoyproxy.io/owning-gateway-namespace: {{ .Release.Namespace }}
+#   ports:
+#     - protocol: NodePort
+#       port: 80
+#       targetPort: 10080
+#       nodePort: {{ .Values.gateway.nodePort }}

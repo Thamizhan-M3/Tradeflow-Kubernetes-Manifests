@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   parentRefs:
-  - name: tradeflow-gateway
+  - name: {{ .Release.Name }}-gateway
     namespace: {{ .Release.Namespace }}
     sectionName: http
   rules:

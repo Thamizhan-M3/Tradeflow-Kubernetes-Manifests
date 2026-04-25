@@ -2,6 +2,7 @@
 # to enforce the required security policies without needing a custom webhook server.
 # Ensure Kyverno is installed in the cluster: `helm install kyverno kyverno/kyverno -n kyverno --create-namespace`
 
+# Corrected Kyverno ClusterPolicy for TradeFlow
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
@@ -21,6 +22,8 @@ spec:
         - resources:
             namespaces:
               - tradeflow-dev
+              - tradeflow-prod
+              - kgateway-system  # Added exclusion for infrastructure
             selector:
               matchLabels:
                 app.kubernetes.io/name: mongodb
@@ -30,12 +33,18 @@ spec:
           spec:
             containers:
               - image: "!*:latest"
+
     - name: require-resource-limits
       match:
         any:
         - resources:
             kinds:
               - Pod
+      exclude:
+        any:
+        - resources:
+            namespaces:
+              - kgateway-system  # Added exclusion for gateway components
       validate:
         message: "CPU and memory resource limits are required."
         pattern:
@@ -45,12 +54,19 @@ spec:
                   limits:
                     memory: "?*"
                     cpu: "?*"
+
     - name: disallow-privileged-containers
       match:
         any:
         - resources:
             kinds:
               - Pod
+      exclude:
+        any:
+        - resources:
+            namespaces:
+              - kube-system
+              - kgateway-system # Added exclusion to allow network binding
       validate:
         message: "Privileged containers are not allowed."
         pattern:

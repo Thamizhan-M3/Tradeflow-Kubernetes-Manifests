@@ -1,11 +1,9 @@
-{{- if .Values.gateway.enabled -}}
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: tradeflow-gateway
-  namespace: {{ .Release.Namespace }}
+  name: {{ include "tradeflow.fullname" . }}-gateway
   labels:
-    app.kubernetes.io/part-of: tradeflow
+    app.kubernetes.io/part-of: {{ include "tradeflow.fullname" . }}
     environment: {{ .Values.global.environment }}
 spec:
   gatewayClassName: kgateway
@@ -16,4 +14,3 @@ spec:
       allowedRoutes:
         namespaces:
           from: Same
-{{- end -}}

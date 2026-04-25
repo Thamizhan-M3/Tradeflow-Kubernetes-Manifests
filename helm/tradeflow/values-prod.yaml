@@ -151,3 +151,7 @@ mongodb:
       requests:
         cpu: "150m"
         memory: "256Mi"
+
+gateway:
+  nodePort: 31871 # Shifted from 31865
+  className: eg

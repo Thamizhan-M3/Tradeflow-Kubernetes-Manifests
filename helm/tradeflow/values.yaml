@@ -17,6 +17,8 @@ frontend:
     path: /
     failureThreshold: 30
     periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
   service:
     type: ClusterIP
     port: 80
@@ -28,52 +30,64 @@ user:
   routePath: /users
   probes:
     path: /health
-    failureThreshold: 30
+    initialDelaySeconds: 60
     periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
   service:
     type: ClusterIP
     port: 4001
   env:
     PORT: "4001"
+  routePath: "/api/users"
 
 stock:
   enabled: true
   routePath: /stocks
   probes:
     path: /health
-    failureThreshold: 30
+    initialDelaySeconds: 60
     periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
   service:
     type: ClusterIP
     port: 4002
   env:
     PORT: "4002"
+  routePath: "/api/stocks"
 
 trading:
   enabled: true
   routePath: /trades
   probes:
     path: /health
-    failureThreshold: 30
+    initialDelaySeconds: 60
     periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
   service:
     type: ClusterIP
     port: 4003
   env:
     PORT: "4003"
+  routePath: "/api/trades"
 
 portfolio:
   enabled: true
   routePath: /portfolio
   probes:
     path: /health
-    failureThreshold: 30
+    initialDelaySeconds: 60
     periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
   service:
     type: ClusterIP
     port: 4004
   env:
     PORT: "4004"
+  routePath: "/api/portfolio"
 
 mongodb:
   enabled: true

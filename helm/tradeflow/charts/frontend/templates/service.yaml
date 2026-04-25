@@ -5,11 +5,12 @@ metadata:
   labels:
     {{- include "frontend.selectorLabels" . | nindent 4 }}
 spec:
-  type: {{ .Values.service.type }}
+  type: NodePort
   ports:
     - port: {{ .Values.service.port }}
       targetPort: {{ .Values.env.PORT }}
       protocol: TCP
       name: http
+      nodePort: 30105
   selector:
     {{- include "frontend.selectorLabels" . | nindent 4 }}

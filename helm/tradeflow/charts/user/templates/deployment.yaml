@@ -29,15 +29,24 @@ spec:
             httpGet:
               path: {{ .Values.probes.path }}
               port: {{ .Values.env.PORT | int }}
+            initialDelaySeconds: {{ .Values.probes.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probes.periodSeconds }}
+            timeoutSeconds: {{ .Values.probes.timeoutSeconds }}
+            failureThreshold: {{ .Values.probes.failureThreshold }}
           readinessProbe:
             httpGet:
               path: {{ .Values.probes.path }}
               port: {{ .Values.env.PORT | int }}
+            initialDelaySeconds: {{ .Values.probes.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probes.periodSeconds }}
+            timeoutSeconds: {{ .Values.probes.timeoutSeconds }}
           startupProbe:
             httpGet:
               path: {{ .Values.probes.path }}
               port: {{ .Values.env.PORT | int }}
-            failureThreshold: {{ .Values.probes.failureThreshold }}
+            initialDelaySeconds: {{ .Values.probes.initialDelaySeconds }}
             periodSeconds: {{ .Values.probes.periodSeconds }}
+            timeoutSeconds: {{ .Values.probes.timeoutSeconds }}
+            failureThreshold: {{ .Values.probes.failureThreshold }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

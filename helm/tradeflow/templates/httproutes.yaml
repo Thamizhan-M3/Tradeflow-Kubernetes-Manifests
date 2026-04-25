@@ -101,6 +101,6 @@ spec:
             type: PathPrefix
             value: {{ .Values.frontend.routePath | default "/" }}
       backendRefs:
-        - name: frontend-service
+        - name: tradeflow-dev-frontend
           port: {{ .Values.frontend.service.port }}
 {{- end -}}

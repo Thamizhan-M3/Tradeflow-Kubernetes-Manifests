@@ -1,0 +1,311 @@
+# ==============================================================
+# ArgoCD Application Manifests — Tradeflow (Prod Namespace)
+# Deploy: kubectl apply -f argocd/prod/
+# ==============================================================
+
+# ── USER SERVICE ──────────────────────────────────────────────
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tradeflow-user-prod
+  namespace: argocd
+  labels:
+    app.kubernetes.io/part-of: tradeflow
+    environment: prod
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Thamizhan-M3/Tradeflow-Kubernetes-Manifests.git
+    targetRevision: HEAD
+    path: helm/tradeflow/charts/user
+    helm:
+      releaseName: tradeflow-prod-user
+      values: |
+        replicaCount: 2
+        image:
+          repository: thamizhanm3/tradeflow-user
+          tag: "v0.0.1"
+          pullPolicy: IfNotPresent
+        service:
+          type: ClusterIP
+          port: 4001
+        probes:
+          path: /health
+          failureThreshold: 30
+          periodSeconds: 10
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+          requests:
+            cpu: "50m"
+            memory: "64Mi"
+        autoscaling:
+          enabled: true
+          minReplicas: 3
+          maxReplicas: 6
+          targetCPUUtilizationPercentage: 80
+        env:
+          MONGODB_URI: "mongodb://tradeflow-prod-mongodb-0.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-1.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-2.tradeflow-prod-mongodb-headless:27017/user_db_prod?replicaSet=rs0"
+          PORT: "4001"
+        routePath: /users
+        global:
+          environment: prod
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: tradeflow-prod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+
+# ── STOCK SERVICE ─────────────────────────────────────────────
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tradeflow-stock-prod
+  namespace: argocd
+  labels:
+    app.kubernetes.io/part-of: tradeflow
+    environment: prod
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Thamizhan-M3/Tradeflow-Kubernetes-Manifests.git
+    targetRevision: HEAD
+    path: helm/tradeflow/charts/stock
+    helm:
+      releaseName: tradeflow-prod-stock
+      values: |
+        replicaCount: 2
+        image:
+          repository: thamizhanm3/tradeflow-stock
+          tag: "v0.0.1"
+          pullPolicy: IfNotPresent
+        service:
+          type: ClusterIP
+          port: 4002
+        probes:
+          path: /health
+          failureThreshold: 30
+          periodSeconds: 10
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+          requests:
+            cpu: "50m"
+            memory: "64Mi"
+        autoscaling:
+          enabled: true
+          minReplicas: 3
+          maxReplicas: 6
+          targetCPUUtilizationPercentage: 80
+        env:
+          MONGODB_URI: "mongodb://tradeflow-prod-mongodb-0.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-1.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-2.tradeflow-prod-mongodb-headless:27017/stock_db_prod?replicaSet=rs0"
+          PORT: "4002"
+        routePath: /stocks
+        global:
+          environment: prod
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: tradeflow-prod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+
+# ── TRADING SERVICE ───────────────────────────────────────────
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tradeflow-trading-prod
+  namespace: argocd
+  labels:
+    app.kubernetes.io/part-of: tradeflow
+    environment: prod
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Thamizhan-M3/Tradeflow-Kubernetes-Manifests.git
+    targetRevision: HEAD
+    path: helm/tradeflow/charts/trading
+    helm:
+      releaseName: tradeflow-prod-trading
+      values: |
+        replicaCount: 2
+        image:
+          repository: thamizhanm3/tradeflow-trading
+          tag: "v0.0.1"
+          pullPolicy: IfNotPresent
+        service:
+          type: ClusterIP
+          port: 4003
+        probes:
+          path: /health
+          failureThreshold: 30
+          periodSeconds: 10
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+          requests:
+            cpu: "50m"
+            memory: "64Mi"
+        autoscaling:
+          enabled: true
+          minReplicas: 3
+          maxReplicas: 6
+          targetCPUUtilizationPercentage: 80
+        env:
+          MONGODB_URI: "mongodb://tradeflow-prod-mongodb-0.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-1.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-2.tradeflow-prod-mongodb-headless:27017/trading_db_prod?replicaSet=rs0"
+          PORT: "4003"
+        routePath: /trades
+        global:
+          environment: prod
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: tradeflow-prod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+
+# ── PORTFOLIO SERVICE ─────────────────────────────────────────
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tradeflow-portfolio-prod
+  namespace: argocd
+  labels:
+    app.kubernetes.io/part-of: tradeflow
+    environment: prod
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Thamizhan-M3/Tradeflow-Kubernetes-Manifests.git
+    targetRevision: HEAD
+    path: helm/tradeflow/charts/portfolio
+    helm:
+      releaseName: tradeflow-prod-portfolio
+      values: |
+        replicaCount: 2
+        image:
+          repository: thamizhanm3/tradeflow-portfolio
+          tag: "v0.0.1"
+          pullPolicy: IfNotPresent
+        service:
+          type: ClusterIP
+          port: 4004
+        probes:
+          path: /health
+          failureThreshold: 30
+          periodSeconds: 10
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+          requests:
+            cpu: "50m"
+            memory: "64Mi"
+        autoscaling:
+          enabled: true
+          minReplicas: 3
+          maxReplicas: 6
+          targetCPUUtilizationPercentage: 80
+        env:
+          MONGODB_URI: "mongodb://tradeflow-prod-mongodb-0.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-1.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-2.tradeflow-prod-mongodb-headless:27017/portfolio_db_prod?replicaSet=rs0"
+          PORT: "4004"
+        routePath: /portfolio
+        global:
+          environment: prod
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: tradeflow-prod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+
+# ── FRONTEND ──────────────────────────────────────────────────
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tradeflow-frontend-prod
+  namespace: argocd
+  labels:
+    app.kubernetes.io/part-of: tradeflow
+    environment: prod
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Thamizhan-M3/Tradeflow-Kubernetes-Manifests.git
+    targetRevision: HEAD
+    path: helm/tradeflow/charts/frontend
+    helm:
+      releaseName: tradeflow-prod-frontend
+      values: |
+        replicaCount: 3
+        image:
+          repository: thamizhanm3/tradeflow-frontend
+          tag: "v0.0.3"
+          pullPolicy: IfNotPresent
+        service:
+          type: ClusterIP
+          port: 80
+        probes:
+          path: /
+          failureThreshold: 30
+          periodSeconds: 10
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+          requests:
+            cpu: "50m"
+            memory: "64Mi"
+        autoscaling:
+          enabled: true
+          minReplicas: 3
+          maxReplicas: 6
+          targetCPUUtilizationPercentage: 80
+        env:
+          PORT: "80"
+          VITE_USERS_API: "/api/users"
+          VITE_STOCKS_API: "/api/stocks"
+          VITE_TRADES_API: "/api/trades"
+          VITE_PORTFOLIO_API: "/api/portfolio"
+        routePath: /
+        global:
+          environment: prod
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: tradeflow-prod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

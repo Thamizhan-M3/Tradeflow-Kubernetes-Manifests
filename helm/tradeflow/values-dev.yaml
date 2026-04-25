@@ -46,7 +46,7 @@ user:
     maxReplicas: 4
     targetCPUUtilizationPercentage: 80
   env:
-    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/user-db?replicaSet=rs0"
+    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017/user-db?replicaSet=rs0"
     PORT: "4001"
 
 
@@ -69,7 +69,7 @@ stock:
     maxReplicas: 4
     targetCPUUtilizationPercentage: 80
   env:
-    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/user-db?replicaSet=rs0"
+    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017/user-db?replicaSet=rs0"
     PORT: "4002"
 
 trading:
@@ -91,7 +91,7 @@ trading:
     maxReplicas: 4
     targetCPUUtilizationPercentage: 80
   env:
-    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/user-db?replicaSet=rs0"
+    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017/user-db?replicaSet=rs0"
     PORT: "4003"
 
 portfolio:
@@ -113,12 +113,12 @@ portfolio:
     maxReplicas: 4
     targetCPUUtilizationPercentage: 80
   env:
-    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/user-db?replicaSet=rs0"
+    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017/user-db?replicaSet=rs0"
     PORT: "4004"
 
 mongodb:
-  architecture: replicaset
-  replicaCount: 2
+  architecture: standalone
+  replicaCount: 1
   auth:
     enabled: false
   replicaSetName: rs0

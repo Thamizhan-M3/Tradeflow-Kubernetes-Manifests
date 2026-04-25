@@ -15,10 +15,18 @@ spec:
     - matches:
         - path:
             type: PathPrefix
-            value: {{ .Values.user.routePath | default "/api/users" }}
+            value: /api/users
       backendRefs:
         - name: tradeflow-dev-user
-          port: {{ .Values.user.service.port }}
+          port: 4001
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /health
+      backendRefs:
+        - name: tradeflow-dev-user
+          port: 4001
+
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute

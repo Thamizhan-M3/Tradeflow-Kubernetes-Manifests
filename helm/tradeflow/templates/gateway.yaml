@@ -1,9 +1,9 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: {{ include "tradeflow.fullname" . }}-gateway
+  name: {{ .Release.Namespace }}-gateway
   labels:
-    app.kubernetes.io/part-of: {{ include "tradeflow.fullname" . }}
+    app.kubernetes.io/part-of: {{ .Release.Namespace }}
     environment: {{ .Values.global.environment }}
 spec:
   gatewayClassName: kgateway

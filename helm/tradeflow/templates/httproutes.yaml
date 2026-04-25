@@ -16,12 +16,6 @@ spec:
         - path:
             type: PathPrefix
             value: /api/users
-      filters:
-        - type: URLRewrite
-          urlRewrite:
-            path:
-              type: ReplacePrefixMatch
-              replacePrefixMatch: /api
       backendRefs:
         - name: tradeflow-dev-user
           port: 4001

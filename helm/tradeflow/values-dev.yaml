@@ -14,8 +14,8 @@ frontend:
       cpu: "200m"
       memory: "256Mi"
     requests:
-      cpu: "100m"
-      memory: "128Mi"
+      cpu: "50m"
+      memory: "64Mi"
   autoscaling:
     enabled: true
     minReplicas: 2
@@ -38,15 +38,15 @@ user:
       cpu: "200m"
       memory: "256Mi"
     requests:
-      cpu: "100m"
-      memory: "128Mi"
+      cpu: "50m"
+      memory: "64Mi"
   autoscaling:
     enabled: true
     minReplicas: 2
     maxReplicas: 4
     targetCPUUtilizationPercentage: 80
   env:
-    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/user-db?replicaSet=rs0"
+    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/user_db_dev?replicaSet=rs0"
     PORT: "4001"
 
 
@@ -61,15 +61,15 @@ stock:
       cpu: "200m"
       memory: "256Mi"
     requests:
-      cpu: "100m"
-      memory: "128Mi"
+      cpu: "50m"
+      memory: "64Mi"
   autoscaling:
     enabled: true
     minReplicas: 2
     maxReplicas: 4
     targetCPUUtilizationPercentage: 80
   env:
-    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/user-db?replicaSet=rs0"
+    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/stock_db_dev?replicaSet=rs0"
     PORT: "4002"
 
 trading:
@@ -83,15 +83,15 @@ trading:
       cpu: "200m"
       memory: "256Mi"
     requests:
-      cpu: "100m"
-      memory: "128Mi"
+      cpu: "50m"
+      memory: "64Mi"
   autoscaling:
     enabled: true
     minReplicas: 2
     maxReplicas: 4
     targetCPUUtilizationPercentage: 80
   env:
-    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/user-db?replicaSet=rs0"
+    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/trading_db_dev?replicaSet=rs0"
     PORT: "4003"
 
 portfolio:
@@ -105,15 +105,15 @@ portfolio:
       cpu: "200m"
       memory: "256Mi"
     requests:
-      cpu: "100m"
-      memory: "128Mi"
+      cpu: "50m"
+      memory: "64Mi"
   autoscaling:
     enabled: true
     minReplicas: 2
     maxReplicas: 4
     targetCPUUtilizationPercentage: 80
   env:
-    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/user-db?replicaSet=rs0"
+    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/portfolio_db_dev?replicaSet=rs0"
     PORT: "4004"
 
 mongodb:
@@ -130,7 +130,7 @@ mongodb:
   persistence:
     enabled: true
     storageClass: nfs-storage
-    size: 5Gi
+    size: 2Gi
   resources:
     limits:
       cpu: "500m"

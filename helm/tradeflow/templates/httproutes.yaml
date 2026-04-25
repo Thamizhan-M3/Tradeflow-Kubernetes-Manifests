@@ -16,6 +16,12 @@ spec:
         - path:
             type: PathPrefix
             value: /api/users
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /api
       backendRefs:
         - name: tradeflow-dev-user
           port: 4001
@@ -44,10 +50,23 @@ spec:
     - matches:
         - path:
             type: PathPrefix
-            value: {{ .Values.stock.routePath | default "/api/stocks" }}
+            value: /api/stocks
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /api
       backendRefs:
         - name: tradeflow-dev-stock
-          port: {{ .Values.stock.service.port }}
+          port: 4002
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /health
+      backendRefs:
+        - name: tradeflow-dev-stock
+          port: 4002
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
@@ -65,10 +84,23 @@ spec:
     - matches:
         - path:
             type: PathPrefix
-            value: {{ .Values.trading.routePath | default "/api/trades" }}
+            value: /api/trades
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /api
       backendRefs:
         - name: tradeflow-dev-trading
-          port: {{ .Values.trading.service.port }}
+          port: 4003
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /health
+      backendRefs:
+        - name: tradeflow-dev-trading
+          port: 4003
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
@@ -86,10 +118,23 @@ spec:
     - matches:
         - path:
             type: PathPrefix
-            value: {{ .Values.portfolio.routePath | default "/api/portfolio" }}
+            value: /api/portfolio
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /api
       backendRefs:
         - name: tradeflow-dev-portfolio
-          port: {{ .Values.portfolio.service.port }}
+          port: 4004
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /health
+      backendRefs:
+        - name: tradeflow-dev-portfolio
+          port: 4004
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute

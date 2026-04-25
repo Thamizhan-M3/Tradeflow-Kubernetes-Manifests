@@ -25,7 +25,7 @@ frontend:
 
 user:
   enabled: true
-  routePath: /api/users
+  routePath: /users
   probes:
     path: /health
     failureThreshold: 30
@@ -38,7 +38,7 @@ user:
 
 stock:
   enabled: true
-  routePath: /api/stocks
+  routePath: /stocks
   probes:
     path: /health
     failureThreshold: 30
@@ -51,7 +51,7 @@ stock:
 
 trading:
   enabled: true
-  routePath: /api/trades
+  routePath: /trades
   probes:
     path: /health
     failureThreshold: 30
@@ -64,7 +64,7 @@ trading:
 
 portfolio:
   enabled: true
-  routePath: /api/portfolio
+  routePath: /portfolio
   probes:
     path: /health
     failureThreshold: 30

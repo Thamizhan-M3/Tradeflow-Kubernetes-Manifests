@@ -46,7 +46,7 @@ user:
     maxReplicas: 4
     targetCPUUtilizationPercentage: 80
   env:
-    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017/user-db?replicaSet=rs0"
+    MONGODB_URI: "mongodb://tradeflow-dev-mongodb:27017/user-db"
     PORT: "4001"
 
 
@@ -69,7 +69,7 @@ stock:
     maxReplicas: 4
     targetCPUUtilizationPercentage: 80
   env:
-    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017/user-db?replicaSet=rs0"
+    MONGODB_URI: "mongodb://tradeflow-dev-mongodb:27017/user-db"
     PORT: "4002"
 
 trading:
@@ -91,7 +91,7 @@ trading:
     maxReplicas: 4
     targetCPUUtilizationPercentage: 80
   env:
-    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017/user-db?replicaSet=rs0"
+    MONGODB_URI: "mongodb://tradeflow-dev-mongodb:27017/user-db"
     PORT: "4003"
 
 portfolio:
@@ -113,7 +113,7 @@ portfolio:
     maxReplicas: 4
     targetCPUUtilizationPercentage: 80
   env:
-    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017/user-db?replicaSet=rs0"
+    MONGODB_URI: "mongodb://tradeflow-dev-mongodb:27017/user-db"
     PORT: "4004"
 
 mongodb:
@@ -121,7 +121,6 @@ mongodb:
   replicaCount: 1
   auth:
     enabled: false
-  replicaSetName: rs0
   image:
     registry: docker.io
     repository: bitnami/mongodb
@@ -138,25 +137,13 @@ mongodb:
     requests:
       cpu: "250m"
       memory: "512Mi"
-  arbiter:
-    enabled: false
-    image:
-      registry: docker.io
-      repository: bitnami/mongodb
-      tag: latest
-    resources:
-      limits:
-        cpu: "250m"
-        memory: "512Mi"
-      requests:
-        cpu: "150m"
-        memory: "256Mi"
-  # Add readiness probe overrides
   readinessProbe:
-    initialDelaySeconds: 60   # wait longer before first check
-    periodSeconds: 10         # check every 10s
-    timeoutSeconds: 5         # fail if probe takes >5s
-    failureThreshold: 6       # allow multiple failures before marking unready
+    enabled: true
+    initialDelaySeconds: 60
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+
 
 
 gateway:

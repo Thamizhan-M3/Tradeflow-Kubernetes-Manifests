@@ -118,7 +118,7 @@ portfolio:
 
 mongodb:
   architecture: replicaset
-  replicaCount: 3
+  replicaCount: 2
   auth:
     enabled: false
   replicaSetName: rs0
@@ -151,6 +151,13 @@ mongodb:
       requests:
         cpu: "150m"
         memory: "256Mi"
+  # Add readiness probe overrides
+  readinessProbe:
+    initialDelaySeconds: 60   # wait longer before first check
+    periodSeconds: 10         # check every 10s
+    timeoutSeconds: 5         # fail if probe takes >5s
+    failureThreshold: 6       # allow multiple failures before marking unready
+
 
 gateway:
   nodePort: 31870 # Shifted from 31864 to avoid the conflict

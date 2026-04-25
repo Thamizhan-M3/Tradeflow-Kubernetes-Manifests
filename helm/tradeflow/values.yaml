@@ -2,15 +2,20 @@ global:
   environment: default
   ingress:
     domain: tradeflow.local
+  gateway:
+    enabled: true
+    className: kgateway
+    name: tradeflow-gateway
 
 # -------------------------
 # MICROSERVICES DEFAULTS
 # -------------------------
 frontend:
   enabled: true
+  routePath: /
   probes:
     path: /
-    initialDelaySeconds: 60
+    failureThreshold: 30
     periodSeconds: 10
     timeoutSeconds: 5
     failureThreshold: 6
@@ -22,6 +27,7 @@ frontend:
 
 user:
   enabled: true
+  routePath: /users
   probes:
     path: /health
     initialDelaySeconds: 60
@@ -37,6 +43,7 @@ user:
 
 stock:
   enabled: true
+  routePath: /stocks
   probes:
     path: /health
     initialDelaySeconds: 60
@@ -52,6 +59,7 @@ stock:
 
 trading:
   enabled: true
+  routePath: /trades
   probes:
     path: /health
     initialDelaySeconds: 60
@@ -67,6 +75,7 @@ trading:
 
 portfolio:
   enabled: true
+  routePath: /portfolio
   probes:
     path: /health
     initialDelaySeconds: 60

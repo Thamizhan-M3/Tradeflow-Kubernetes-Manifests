@@ -22,10 +22,10 @@ frontend:
     maxReplicas: 4
     targetCPUUtilizationPercentage: 80
   env:
-    VITE_USERS_API: "http://tradeflow-dev-user:4001/api"
-    VITE_STOCKS_API: "http://tradeflow-dev-stock:4002/api"
-    VITE_TRADES_API: "http://tradeflow-dev-trading:4003/api"
-    VITE_PORTFOLIO_API: "http://tradeflow-dev-portfolio:4004/api"
+    VITE_USERS_API: "/api/users"
+    VITE_STOCKS_API: "/api/stocks"
+    VITE_TRADES_API: "/api/trades"
+    VITE_PORTFOLIO_API: "/api/portfolio"
 
 user:
   replicaCount: 2
@@ -46,7 +46,7 @@ user:
     maxReplicas: 4
     targetCPUUtilizationPercentage: 80
   env:
-    MONGODB_URI: "mongodb://tradeflow-dev-mongodb:27017/user-db"
+    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/user_db_dev?replicaSet=rs0"
     PORT: "4001"
 
 
@@ -69,7 +69,7 @@ stock:
     maxReplicas: 4
     targetCPUUtilizationPercentage: 80
   env:
-    MONGODB_URI: "mongodb://tradeflow-dev-mongodb:27017/user-db"
+    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/stock_db_dev?replicaSet=rs0"
     PORT: "4002"
 
 trading:
@@ -91,7 +91,7 @@ trading:
     maxReplicas: 4
     targetCPUUtilizationPercentage: 80
   env:
-    MONGODB_URI: "mongodb://tradeflow-dev-mongodb:27017/user-db"
+    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/trading_db_dev?replicaSet=rs0"
     PORT: "4003"
 
 portfolio:
@@ -113,7 +113,7 @@ portfolio:
     maxReplicas: 4
     targetCPUUtilizationPercentage: 80
   env:
-    MONGODB_URI: "mongodb://tradeflow-dev-mongodb:27017/user-db"
+    MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/portfolio_db_dev?replicaSet=rs0"
     PORT: "4004"
 
 mongodb:
@@ -129,7 +129,7 @@ mongodb:
   persistence:
     enabled: true
     storageClass: nfs-storage
-    size: 5Gi
+    size: 2Gi
   resources:
     limits:
       cpu: "500m"

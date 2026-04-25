@@ -23,7 +23,6 @@ spec:
             namespaces:
               - tradeflow-dev
               - tradeflow-prod
-              - kgateway-system  # Added exclusion for infrastructure
             selector:
               matchLabels:
                 app.kubernetes.io/name: mongodb

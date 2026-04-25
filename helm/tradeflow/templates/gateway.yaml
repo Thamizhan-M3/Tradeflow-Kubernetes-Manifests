@@ -2,30 +2,15 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: {{ .Release.Name }}-gateway
-  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/part-of: {{ .Release.Name }}
+    environment: {{ .Values.global.environment }}
 spec:
-  gatewayClassName: {{ .Values.gateway.className | default "kgateway" }}
+  gatewayClassName: kgateway
   listeners:
-  - name: http
-    protocol: HTTP
-    port: 80
-    allowedRoutes:
-      namespaces:
-        from: Same
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ .Release.Name }}-gateway-nodeport
-  namespace: kgateway-system  # Must match where the kgateway pod is
-spec:
-  type: NodePort
-  selector:
-    # REPLACING 'app: kgateway' with the actual labels found in step 1
-    app.kubernetes.io/name: kgateway
-    app.kubernetes.io/instance: kgateway
-  ports:
-    - protocol: TCP
+    - name: http
+      protocol: HTTP
       port: 80
-      targetPort: 8080 # KGateway/Envoy usually listens on 8080 or 8443 inside the pod
-      nodePort: {{ .Values.gateway.nodePort }}
+      allowedRoutes:
+        namespaces:
+          from: Same

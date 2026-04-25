@@ -14,21 +14,21 @@ frontend:
       cpu: "200m"
       memory: "256Mi"
     requests:
-      cpu: "100m"
-      memory: "128Mi"
+      cpu: "50m"
+      memory: "64Mi"
   autoscaling:
     enabled: true
     minReplicas: 3
-    maxReplicas: 5
+    maxReplicas: 6
     targetCPUUtilizationPercentage: 80
   env:
-    VITE_USERS_API: "http://tradeflow-gateway/api/users"
-    VITE_STOCKS_API: "http://tradeflow-gateway/api/stocks"
-    VITE_TRADES_API: "http://tradeflow-gateway/api/trades"
-    VITE_PORTFOLIO_API: "http://tradeflow-gateway/api/portfolio"
+    VITE_USERS_API: "/api/users"
+    VITE_STOCKS_API: "/api/stocks"
+    VITE_TRADES_API: "/api/trades"
+    VITE_PORTFOLIO_API: "/api/portfolio"
 
 user:
-  replicaCount: 3
+  replicaCount: 2
   image:
     repository: thamizhanm3/tradeflow-user
     tag: "v0.0.1"
@@ -38,19 +38,20 @@ user:
       cpu: "200m"
       memory: "256Mi"
     requests:
-      cpu: "100m"
-      memory: "128Mi"
+      cpu: "50m"
+      memory: "64Mi"
   autoscaling:
     enabled: true
     minReplicas: 3
     maxReplicas: 6
     targetCPUUtilizationPercentage: 80
   env:
-    MONGODB_URI: "mongodb://tradeflow-prod-mongodb-0.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-1.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-2.tradeflow-prod-mongodb-headless:27017/user-db?replicaSet=rs0"
+    MONGODB_URI: "mongodb://tradeflow-prod-mongodb-0.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-1.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-2.tradeflow-prod-mongodb-headless:27017/user_db_prod?replicaSet=rs0"
     PORT: "4001"
 
+
 stock:
-  replicaCount: 3
+  replicaCount: 2
   image:
     repository: thamizhanm3/tradeflow-stock
     tag: "v0.0.1"
@@ -60,19 +61,19 @@ stock:
       cpu: "200m"
       memory: "256Mi"
     requests:
-      cpu: "100m"
-      memory: "128Mi"
+      cpu: "50m"
+      memory: "64Mi"
   autoscaling:
     enabled: true
     minReplicas: 3
     maxReplicas: 6
     targetCPUUtilizationPercentage: 80
   env:
-    MONGODB_URI: "mongodb://tradeflow-prod-mongodb-0.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-1.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-2.tradeflow-prod-mongodb-headless:27017/user-db?replicaSet=rs0"
+    MONGODB_URI: "mongodb://tradeflow-prod-mongodb-0.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-1.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-2.tradeflow-prod-mongodb-headless:27017/stock_db_prod?replicaSet=rs0"
     PORT: "4002"
 
 trading:
-  replicaCount: 3
+  replicaCount: 2
   image:
     repository: thamizhanm3/tradeflow-trading
     tag: "v0.0.1"
@@ -82,19 +83,19 @@ trading:
       cpu: "200m"
       memory: "256Mi"
     requests:
-      cpu: "100m"
-      memory: "128Mi"
+      cpu: "50m"
+      memory: "64Mi"
   autoscaling:
     enabled: true
     minReplicas: 3
     maxReplicas: 6
     targetCPUUtilizationPercentage: 80
   env:
-    MONGODB_URI: "mongodb://tradeflow-prod-mongodb-0.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-1.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-2.tradeflow-prod-mongodb-headless:27017/user-db?replicaSet=rs0"
+    MONGODB_URI: "mongodb://tradeflow-prod-mongodb-0.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-1.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-2.tradeflow-prod-mongodb-headless:27017/trading_db_prod?replicaSet=rs0"
     PORT: "4003"
 
 portfolio:
-  replicaCount: 3
+  replicaCount: 2
   image:
     repository: thamizhanm3/tradeflow-portfolio
     tag: "v0.0.1"
@@ -104,20 +105,16 @@ portfolio:
       cpu: "200m"
       memory: "256Mi"
     requests:
-      cpu: "100m"
-      memory: "128Mi"
+      cpu: "50m"
+      memory: "64Mi"
   autoscaling:
     enabled: true
     minReplicas: 3
     maxReplicas: 6
     targetCPUUtilizationPercentage: 80
   env:
-    MONGODB_URI: "mongodb://tradeflow-prod-mongodb-0.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-1.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-2.tradeflow-prod-mongodb-headless:27017/user-db?replicaSet=rs0"
+    MONGODB_URI: "mongodb://tradeflow-prod-mongodb-0.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-1.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-2.tradeflow-prod-mongodb-headless:27017/portfolio_db_prod?replicaSet=rs0"
     PORT: "4004"
-
-# =========================
-# MONGODB (BITNAMI STYLE)
-# =========================
 
 mongodb:
   architecture: replicaset
@@ -133,7 +130,7 @@ mongodb:
   persistence:
     enabled: true
     storageClass: nfs-storage
-    size: 5Gi
+    size: 2Gi
   resources:
     limits:
       cpu: "500m"

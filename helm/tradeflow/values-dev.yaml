@@ -154,4 +154,4 @@ mongodb:
 
 gateway:
   nodePort: 31870 # Shifted from 31864 to avoid the conflict
-  className: eg
+  className: kgateway

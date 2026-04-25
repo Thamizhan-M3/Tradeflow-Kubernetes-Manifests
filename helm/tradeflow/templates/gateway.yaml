@@ -1,7 +1,7 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: tradeflow-gateway
+  name: {{ .Release.Name }}-gateway
   namespace: {{ .Release.Namespace }}
 spec:
   gatewayClassName: {{ .Values.gateway.className | default "haproxy" }}
@@ -16,17 +16,17 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-gateway-ext
+  name: {{ .Release.Name }}-gateway-nodeport
   # We deploy this service into the namespace where the pods are
-  namespace: haproxy-controller 
+  namespace: envoy-gateway-system
 spec:
   type: NodePort
   selector:
     # These match the labels found in your 'kubectl get pods' output
-    app.kubernetes.io/instance: haproxy-gateway
-    app.kubernetes.io/name: haproxy-unified-gateway
+    gateway.envoyproxy.io/owning-gateway-name: {{ .Release.Name }}-gateway
+    gateway.envoyproxy.io/owning-gateway-namespace: {{ .Release.Namespace }}
   ports:
-    - protocol: TCP
+    - protocol: NodePort
       port: 80
-      targetPort: 80
+      targetPort: 10080
       nodePort: {{ .Values.gateway.nodePort }}

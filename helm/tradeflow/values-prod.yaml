@@ -157,4 +157,4 @@ mongodb:
 
 gateway:
   nodePort: 31871 # Shifted from 31865
-  className: haproxy
+  className: eg

@@ -13,3 +13,13 @@ metadata:
   labels:
     environment: prod
     app: tradeflow
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gateway
+  labels:
+    environment: 
+      - dev
+      - prod
+    app: tradeflow

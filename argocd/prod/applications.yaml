@@ -376,6 +376,9 @@ spec:
     path: helm/tradeflow   # adjust path to where gateway.yaml lives
     helm:
       releaseName: tradeflow-prod-gateway
+      values: |
+        gateway:
+          enabled: false
       valueFiles:
         - values-prod.yaml
         - values.yaml   # or values-prod.yaml depending on environment

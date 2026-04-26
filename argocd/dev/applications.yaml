@@ -1,5 +1,5 @@
 # ==============================================================
-# ArgoCD Application Manifests — Tradeflow (Dev Namespace)
+# ArgoCD Application Manifests — Tradeflow (dev Namespace)
 # Deploy: kubectl apply -f argocd/dev/
 # ==============================================================
 
@@ -44,8 +44,8 @@ spec:
             memory: "64Mi"
         autoscaling:
           enabled: true
-          minReplicas: 2
-          maxReplicas: 4
+          minReplicas: 3
+          maxReplicas: 6
           targetCPUUtilizationPercentage: 80
         env:
           MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/user_db_dev?replicaSet=rs0"
@@ -105,8 +105,8 @@ spec:
             memory: "64Mi"
         autoscaling:
           enabled: true
-          minReplicas: 2
-          maxReplicas: 4
+          minReplicas: 3
+          maxReplicas: 6
           targetCPUUtilizationPercentage: 80
         env:
           MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/stock_db_dev?replicaSet=rs0"
@@ -166,8 +166,8 @@ spec:
             memory: "64Mi"
         autoscaling:
           enabled: true
-          minReplicas: 2
-          maxReplicas: 4
+          minReplicas: 3
+          maxReplicas: 6
           targetCPUUtilizationPercentage: 80
         env:
           MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/trading_db_dev?replicaSet=rs0"
@@ -227,8 +227,8 @@ spec:
             memory: "64Mi"
         autoscaling:
           enabled: true
-          minReplicas: 2
-          maxReplicas: 4
+          minReplicas: 3
+          maxReplicas: 6
           targetCPUUtilizationPercentage: 80
         env:
           MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/portfolio_db_dev?replicaSet=rs0"
@@ -267,7 +267,7 @@ spec:
     helm:
       releaseName: tradeflow-dev-frontend
       values: |
-        replicaCount: 2
+        replicaCount: 3
         image:
           repository: thamizhanm3/tradeflow-frontend
           tag: "v0.0.3"
@@ -288,8 +288,8 @@ spec:
             memory: "64Mi"
         autoscaling:
           enabled: true
-          minReplicas: 2
-          maxReplicas: 4
+          minReplicas: 3
+          maxReplicas: 6
           targetCPUUtilizationPercentage: 80
         env:
           PORT: "80"
@@ -324,14 +324,33 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Thamizhan-M3/Tradeflow-Kubernetes-Manifests.git
-    targetRevision: HEAD
-    path: helm/tradeflow
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: mongodb
+    targetRevision: 14.0.0
     helm:
       releaseName: tradeflow-dev-mongodb
-      valueFiles:
-        - values-dev.yaml
-        - values.yaml
+      values: |
+        architecture: replicaset
+        replicaCount: 3
+        replicaSetName: rs0
+        image:
+          registry: docker.io
+          repository: bitnami/mongodb
+          tag: latest
+          pullPolicy: IfNotPresent
+        auth:
+          enabled: false
+        persistence:
+          enabled: true
+          storageClass: nfs-storage
+          size: 2Gi
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
+          requests:
+            cpu: "250m"
+            memory: "512Mi"
   destination:
     server: https://kubernetes.default.svc
     namespace: tradeflow-dev

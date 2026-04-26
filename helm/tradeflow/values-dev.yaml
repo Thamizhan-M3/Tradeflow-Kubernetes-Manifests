@@ -117,6 +117,8 @@ portfolio:
     PORT: "4004"
 
 mongodb:
+  gateway:
+    enabled: false
   architecture: replicaset
   replicaCount: 3
   auth:

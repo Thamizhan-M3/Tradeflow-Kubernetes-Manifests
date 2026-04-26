@@ -22,37 +22,9 @@ spec:
     path: helm/tradeflow/charts/user
     helm:
       releaseName: tradeflow-prod-user
-      values: |
-        replicaCount: 2
-        image:
-          repository: thamizhanm3/tradeflow-user
-          tag: "v0.0.1"
-          pullPolicy: IfNotPresent
-        service:
-          type: ClusterIP
-          port: 4001
-        probes:
-          path: /health
-          failureThreshold: 30
-          periodSeconds: 10
-        resources:
-          limits:
-            cpu: "200m"
-            memory: "256Mi"
-          requests:
-            cpu: "50m"
-            memory: "64Mi"
-        autoscaling:
-          enabled: true
-          minReplicas: 3
-          maxReplicas: 6
-          targetCPUUtilizationPercentage: 80
-        env:
-          MONGODB_URI: "mongodb://tradeflow-prod-mongodb-0.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-1.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-2.tradeflow-prod-mongodb-headless:27017/user_db_prod?replicaSet=rs0"
-          PORT: "4001"
-        routePath: /users
-        global:
-          environment: prod
+      valueFiles:
+        - values.yaml
+        - values-prod.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: tradeflow-prod
@@ -83,37 +55,9 @@ spec:
     path: helm/tradeflow/charts/stock
     helm:
       releaseName: tradeflow-prod-stock
-      values: |
-        replicaCount: 2
-        image:
-          repository: thamizhanm3/tradeflow-stock
-          tag: "v0.0.1"
-          pullPolicy: IfNotPresent
-        service:
-          type: ClusterIP
-          port: 4002
-        probes:
-          path: /health
-          failureThreshold: 30
-          periodSeconds: 10
-        resources:
-          limits:
-            cpu: "200m"
-            memory: "256Mi"
-          requests:
-            cpu: "50m"
-            memory: "64Mi"
-        autoscaling:
-          enabled: true
-          minReplicas: 3
-          maxReplicas: 6
-          targetCPUUtilizationPercentage: 80
-        env:
-          MONGODB_URI: "mongodb://tradeflow-prod-mongodb-0.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-1.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-2.tradeflow-prod-mongodb-headless:27017/stock_db_prod?replicaSet=rs0"
-          PORT: "4002"
-        routePath: /stocks
-        global:
-          environment: prod
+      valueFiles:
+        - values.yaml
+        - values-prod.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: tradeflow-prod
@@ -144,37 +88,9 @@ spec:
     path: helm/tradeflow/charts/trading
     helm:
       releaseName: tradeflow-prod-trading
-      values: |
-        replicaCount: 2
-        image:
-          repository: thamizhanm3/tradeflow-trading
-          tag: "v0.0.1"
-          pullPolicy: IfNotPresent
-        service:
-          type: ClusterIP
-          port: 4003
-        probes:
-          path: /health
-          failureThreshold: 30
-          periodSeconds: 10
-        resources:
-          limits:
-            cpu: "200m"
-            memory: "256Mi"
-          requests:
-            cpu: "50m"
-            memory: "64Mi"
-        autoscaling:
-          enabled: true
-          minReplicas: 3
-          maxReplicas: 6
-          targetCPUUtilizationPercentage: 80
-        env:
-          MONGODB_URI: "mongodb://tradeflow-prod-mongodb-0.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-1.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-2.tradeflow-prod-mongodb-headless:27017/trading_db_prod?replicaSet=rs0"
-          PORT: "4003"
-        routePath: /trades
-        global:
-          environment: prod
+      valueFiles:
+        - values.yaml
+        - values-prod.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: tradeflow-prod
@@ -205,37 +121,9 @@ spec:
     path: helm/tradeflow/charts/portfolio
     helm:
       releaseName: tradeflow-prod-portfolio
-      values: |
-        replicaCount: 2
-        image:
-          repository: thamizhanm3/tradeflow-portfolio
-          tag: "v0.0.1"
-          pullPolicy: IfNotPresent
-        service:
-          type: ClusterIP
-          port: 4004
-        probes:
-          path: /health
-          failureThreshold: 30
-          periodSeconds: 10
-        resources:
-          limits:
-            cpu: "200m"
-            memory: "256Mi"
-          requests:
-            cpu: "50m"
-            memory: "64Mi"
-        autoscaling:
-          enabled: true
-          minReplicas: 3
-          maxReplicas: 6
-          targetCPUUtilizationPercentage: 80
-        env:
-          MONGODB_URI: "mongodb://tradeflow-prod-mongodb-0.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-1.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-2.tradeflow-prod-mongodb-headless:27017/portfolio_db_prod?replicaSet=rs0"
-          PORT: "4004"
-        routePath: /portfolio
-        global:
-          environment: prod
+      valueFiles:
+        - values.yaml
+        - values-prod.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: tradeflow-prod
@@ -266,40 +154,9 @@ spec:
     path: helm/tradeflow/charts/frontend
     helm:
       releaseName: tradeflow-prod-frontend
-      values: |
-        replicaCount: 3
-        image:
-          repository: thamizhanm3/tradeflow-frontend
-          tag: "v0.0.3"
-          pullPolicy: IfNotPresent
-        service:
-          type: ClusterIP
-          port: 80
-        probes:
-          path: /
-          failureThreshold: 30
-          periodSeconds: 10
-        resources:
-          limits:
-            cpu: "200m"
-            memory: "256Mi"
-          requests:
-            cpu: "50m"
-            memory: "64Mi"
-        autoscaling:
-          enabled: true
-          minReplicas: 3
-          maxReplicas: 6
-          targetCPUUtilizationPercentage: 80
-        env:
-          PORT: "80"
-          VITE_USERS_API: "/api/users"
-          VITE_STOCKS_API: "/api/stocks"
-          VITE_TRADES_API: "/api/trades"
-          VITE_PORTFOLIO_API: "/api/portfolio"
-        routePath: /
-        global:
-          environment: prod
+      valueFiles:
+        - values.yaml
+        - values-prod.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: tradeflow-prod

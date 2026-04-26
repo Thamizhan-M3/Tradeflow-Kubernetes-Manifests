@@ -99,3 +99,13 @@ gateway:
 
 haproxy:
   enabled: true
+
+# ──────────────────────────────────────────────────────────────
+# COMMON CHART VALUES
+# Gateway is deployed via the common sub-chart.
+# Values here are scoped under 'common' and passed to it.
+# ──────────────────────────────────────────────────────────────
+common:
+  gateway:
+    enabled: true
+    className: kgateway

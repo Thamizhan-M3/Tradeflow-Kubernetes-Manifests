@@ -154,6 +154,9 @@ mongodb:
         cpu: "150m"
         memory: "256Mi"
 
-gateway:
-  nodePort: 31871 # Shifted from 31865
-  className: eg
+
+common:
+  gateway:
+    enabled: true
+    className: kgateway
+    nodePort: 31871 # Shifted from 31865

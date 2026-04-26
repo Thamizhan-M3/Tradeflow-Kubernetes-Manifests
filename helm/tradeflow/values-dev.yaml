@@ -156,6 +156,9 @@ mongodb:
 
 
 
-gateway:
-  nodePort: 31870 # Shifted from 31864 to avoid the conflict
-  className: kgateway
+
+common:
+  gateway:
+    enabled: true
+    className: kgateway
+    nodePort: 31870 # Shifted from 31864 to avoid conflict

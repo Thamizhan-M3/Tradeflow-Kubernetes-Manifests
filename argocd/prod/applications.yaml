@@ -373,12 +373,9 @@ spec:
   source:
     repoURL: https://github.com/Thamizhan-M3/Tradeflow-Kubernetes-Manifests.git
     targetRevision: HEAD
-    path: helm/tradeflow   # adjust path to where gateway.yaml lives
+    path: helm/tradeflow/charts/common   # adjust path to where gateway.yaml lives
     helm:
       releaseName: tradeflow-prod-gateway
-      values: |
-        gateway:
-          enabled: false
       valueFiles:
         - values-prod.yaml
         - values.yaml   # or values-prod.yaml depending on environment

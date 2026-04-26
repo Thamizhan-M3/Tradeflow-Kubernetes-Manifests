@@ -329,7 +329,7 @@ spec:
     path: helm/tradeflow
     helm:
       releaseName: tradeflow-dev-mongodb
-      valuesFiles:
+      valueFiles:
         - values-dev.yaml
   destination:
     server: https://kubernetes.default.svc
@@ -354,7 +354,7 @@ spec:
     path: helm/tradeflow/templates   # adjust path to where gateway.yaml lives
     helm:
       releaseName: tradeflow-dev-gateway
-      valuesFiles:
+      valueFiles:
         - values-dev.yaml
         - values.yaml   # or values-prod.yaml depending on environment
   destination:

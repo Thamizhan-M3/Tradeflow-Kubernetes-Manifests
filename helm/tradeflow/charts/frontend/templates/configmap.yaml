@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: {{ include "frontend.fullname" . }}-config
   labels:
-    {{- include "user.selectorLabels" . | nindent 4 }}
+    {{- include "frontend.selectorLabels" . | nindent 4 }}
 data:
   VITE_USERS_API: {{ .Values.env.VITE_USERS_API | quote }}
   VITE_STOCKS_API: {{ .Values.env.VITE_STOCKS_API | quote }}

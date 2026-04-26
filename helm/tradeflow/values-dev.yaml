@@ -16,6 +16,8 @@ frontend:
     requests:
       cpu: "50m"
       memory: "64Mi"
+  service:
+    type: ClusterIP
   autoscaling:
     enabled: true
     minReplicas: 2

@@ -324,13 +324,30 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Thamizhan-M3/Tradeflow-Kubernetes-Manifests.git
-    targetRevision: HEAD
-    path: helm/tradeflow
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: mongodb
+    targetRevision: 14.0.0
     helm:
       releaseName: tradeflow-prod-mongodb
-      valueFiles:
-        - values-prod.yaml
+      values: |
+        architecture: replicaset
+        replicaCount: 3
+        replicaSetName: rs0
+        auth:
+          enabled: false
+        persistence:
+          enabled: true
+          storageClass: nfs-storage
+          size: 2Gi
+        gateway:
+          enabled: false
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
+          requests:
+            cpu: "250m"
+            memory: "512Mi"
   destination:
     server: https://kubernetes.default.svc
     namespace: tradeflow-prod

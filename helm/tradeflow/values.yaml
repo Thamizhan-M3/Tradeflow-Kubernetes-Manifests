@@ -91,6 +91,8 @@ portfolio:
 
 mongodb:
   enabled: true
+  gateway:
+    enabled: false
 
 gateway:
   enabled: true

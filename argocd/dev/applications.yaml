@@ -25,6 +25,8 @@ spec:
       valueFiles:
         - values.yaml
         - values-dev.yaml
+        - ../../values.yaml
+        - ../../values-dev.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: tradeflow-dev
@@ -58,6 +60,8 @@ spec:
       valueFiles:
         - values.yaml
         - values-dev.yaml
+        - ../../values.yaml
+        - ../../values-dev.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: tradeflow-dev
@@ -91,6 +95,8 @@ spec:
       valueFiles:
         - values.yaml
         - values-dev.yaml
+        - ../../values.yaml
+        - ../../values-dev.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: tradeflow-dev
@@ -124,6 +130,8 @@ spec:
       valueFiles:
         - values.yaml
         - values-dev.yaml
+        - ../../values.yaml
+        - ../../values-dev.yaml
 
   destination:
     server: https://kubernetes.default.svc
@@ -158,6 +166,8 @@ spec:
       valueFiles:
         - values.yaml
         - values-dev.yaml
+        - ../../values.yaml
+        - ../../values-dev.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: tradeflow-dev

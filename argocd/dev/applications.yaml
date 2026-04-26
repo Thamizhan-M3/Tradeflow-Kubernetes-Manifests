@@ -23,8 +23,8 @@ spec:
     helm:
       releaseName: tradeflow-dev-user
       valueFiles:
-        - ../../values.yaml
-        - ../../values-dev.yaml
+        - values.yaml
+        - values-dev.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: tradeflow-dev
@@ -56,8 +56,8 @@ spec:
     helm:
       releaseName: tradeflow-dev-stock
       valueFiles:
-        - ../../values.yaml
-        - ../../values-dev.yaml
+        - values.yaml
+        - values-dev.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: tradeflow-dev
@@ -89,8 +89,8 @@ spec:
     helm:
       releaseName: tradeflow-dev-trading
       valueFiles:
-        - ../../values.yaml
-        - ../../values-dev.yaml
+        - values.yaml
+        - values-dev.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: tradeflow-dev
@@ -122,8 +122,8 @@ spec:
     helm:
       releaseName: tradeflow-dev-portfolio
       valueFiles:
-        - ../../values.yaml
-        - ../../values-dev.yaml
+        - values.yaml
+        - values-dev.yaml
 
   destination:
     server: https://kubernetes.default.svc
@@ -156,8 +156,8 @@ spec:
     helm:
       releaseName: tradeflow-dev-frontend
       valueFiles:
-        - ../../values.yaml
-        - ../../values-dev.yaml
+        - values.yaml
+        - values-dev.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: tradeflow-dev

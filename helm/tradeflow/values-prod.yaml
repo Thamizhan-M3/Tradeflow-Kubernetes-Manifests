@@ -2,7 +2,6 @@ global:
   environment: prod
   ingress:
     domain: tradeflow.com
-
 frontend:
   replicaCount: 3
   image:
@@ -26,12 +25,11 @@ frontend:
     VITE_STOCKS_API: "/api/stocks"
     VITE_TRADES_API: "/api/trades"
     VITE_PORTFOLIO_API: "/api/portfolio"
-
 user:
   replicaCount: 2
   image:
     repository: thamizhanm3/tradeflow-user
-    tag: "v0.0.1"
+    tag: "qa-13255b5"
     pullPolicy: IfNotPresent
   resources:
     limits:
@@ -48,8 +46,6 @@ user:
   env:
     MONGODB_URI: "mongodb://tradeflow-prod-mongodb-0.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-1.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-2.tradeflow-prod-mongodb-headless:27017/user_db_prod?replicaSet=rs0"
     PORT: "4001"
-
-
 stock:
   replicaCount: 2
   image:
@@ -71,7 +67,6 @@ stock:
   env:
     MONGODB_URI: "mongodb://tradeflow-prod-mongodb-0.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-1.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-2.tradeflow-prod-mongodb-headless:27017/stock_db_prod?replicaSet=rs0"
     PORT: "4002"
-
 trading:
   replicaCount: 2
   image:
@@ -93,7 +88,6 @@ trading:
   env:
     MONGODB_URI: "mongodb://tradeflow-prod-mongodb-0.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-1.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-2.tradeflow-prod-mongodb-headless:27017/trading_db_prod?replicaSet=rs0"
     PORT: "4003"
-
 portfolio:
   replicaCount: 2
   image:
@@ -115,7 +109,6 @@ portfolio:
   env:
     MONGODB_URI: "mongodb://tradeflow-prod-mongodb-0.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-1.tradeflow-prod-mongodb-headless:27017,tradeflow-prod-mongodb-2.tradeflow-prod-mongodb-headless:27017/portfolio_db_prod?replicaSet=rs0"
     PORT: "4004"
-
 mongodb:
   gateway:
     enabled: false
@@ -153,8 +146,6 @@ mongodb:
       requests:
         cpu: "150m"
         memory: "256Mi"
-
-
 common:
   gateway:
     enabled: true

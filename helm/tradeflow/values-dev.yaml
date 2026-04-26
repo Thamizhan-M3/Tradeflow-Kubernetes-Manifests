@@ -16,6 +16,10 @@ frontend:
     requests:
       cpu: "50m"
       memory: "64Mi"
+  service:
+    type: ClusterIP
+  env:
+    PORT: "80"
   autoscaling:
     enabled: true
     minReplicas: 2
@@ -117,10 +121,13 @@ portfolio:
     PORT: "4004"
 
 mongodb:
-  architecture: standalone
-  replicaCount: 1
+  gateway:
+    enabled: false
+  architecture: replicaset
+  replicaCount: 3
   auth:
     enabled: false
+  replicaSetName: rs0
   image:
     registry: docker.io
     repository: bitnami/mongodb
@@ -137,15 +144,25 @@ mongodb:
     requests:
       cpu: "250m"
       memory: "512Mi"
-  readinessProbe:
+  arbiter:
+    enabled: false
+    image:
+      registry: docker.io
+      repository: bitnami/mongodb
+      tag: latest
+    resources:
+      limits:
+        cpu: "250m"
+        memory: "512Mi"
+      requests:
+        cpu: "150m"
+        memory: "256Mi"
+
+
+
+
+common:
+  gateway:
     enabled: true
-    initialDelaySeconds: 60
-    periodSeconds: 10
-    timeoutSeconds: 5
-    failureThreshold: 6
-
-
-
-gateway:
-  nodePort: 31870 # Shifted from 31864 to avoid the conflict
-  className: kgateway
+    className: kgateway
+    nodePort: 31870 # Shifted from 31864 to avoid conflict

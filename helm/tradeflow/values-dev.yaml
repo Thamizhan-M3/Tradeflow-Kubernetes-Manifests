@@ -2,7 +2,6 @@ global:
   environment: dev
   ingress:
     domain: dev.tradeflow.local
-
 frontend:
   replicaCount: 2
   image:
@@ -16,6 +15,10 @@ frontend:
     requests:
       cpu: "50m"
       memory: "64Mi"
+  service:
+    type: ClusterIP
+  env:
+    PORT: "80"
   autoscaling:
     enabled: true
     minReplicas: 2
@@ -26,12 +29,11 @@ frontend:
     VITE_STOCKS_API: "/api/stocks"
     VITE_TRADES_API: "/api/trades"
     VITE_PORTFOLIO_API: "/api/portfolio"
-
 user:
   replicaCount: 2
   image:
     repository: thamizhanm3/tradeflow-user
-    tag: "v0.0.1"
+    tag: "qa-a3fb5b7"
     pullPolicy: IfNotPresent
   resources:
     limits:
@@ -48,8 +50,6 @@ user:
   env:
     MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/user_db_dev?replicaSet=rs0"
     PORT: "4001"
-
-
 stock:
   replicaCount: 2
   image:
@@ -71,7 +71,6 @@ stock:
   env:
     MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/stock_db_dev?replicaSet=rs0"
     PORT: "4002"
-
 trading:
   replicaCount: 2
   image:
@@ -93,7 +92,6 @@ trading:
   env:
     MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/trading_db_dev?replicaSet=rs0"
     PORT: "4003"
-
 portfolio:
   replicaCount: 2
   image:
@@ -115,12 +113,14 @@ portfolio:
   env:
     MONGODB_URI: "mongodb://tradeflow-dev-mongodb-0.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-1.tradeflow-dev-mongodb-headless:27017,tradeflow-dev-mongodb-2.tradeflow-dev-mongodb-headless:27017/portfolio_db_dev?replicaSet=rs0"
     PORT: "4004"
-
 mongodb:
-  architecture: standalone
-  replicaCount: 1
+  gateway:
+    enabled: false
+  architecture: replicaset
+  replicaCount: 3
   auth:
     enabled: false
+  replicaSetName: rs0
   image:
     registry: docker.io
     repository: bitnami/mongodb
@@ -137,15 +137,21 @@ mongodb:
     requests:
       cpu: "250m"
       memory: "512Mi"
-  readinessProbe:
+  arbiter:
+    enabled: false
+    image:
+      registry: docker.io
+      repository: bitnami/mongodb
+      tag: latest
+    resources:
+      limits:
+        cpu: "250m"
+        memory: "512Mi"
+      requests:
+        cpu: "150m"
+        memory: "256Mi"
+common:
+  gateway:
     enabled: true
-    initialDelaySeconds: 60
-    periodSeconds: 10
-    timeoutSeconds: 5
-    failureThreshold: 6
-
-
-
-gateway:
-  nodePort: 31870 # Shifted from 31864 to avoid the conflict
-  className: kgateway
+    className: kgateway
+    nodePort: 31870 # Shifted from 31864 to avoid conflict

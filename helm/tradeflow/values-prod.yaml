@@ -22,6 +22,7 @@ frontend:
     maxReplicas: 6
     targetCPUUtilizationPercentage: 80
   env:
+    PORT: "80"
     VITE_USERS_API: "/api/users"
     VITE_STOCKS_API: "/api/stocks"
     VITE_TRADES_API: "/api/trades"

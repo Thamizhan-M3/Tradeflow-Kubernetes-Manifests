@@ -26,9 +26,10 @@ frontend:
     port: 80
   env:
     PORT: "80"
-
-service:
-  type: ClusterIP
+    VITE_USERS_API: "/api/users"
+    VITE_STOCKS_API: "/api/stocks"
+    VITE_TRADES_API: "/api/trades"
+    VITE_PORTFOLIO_API: "/api/portfolio"
 
 user:
   enabled: true

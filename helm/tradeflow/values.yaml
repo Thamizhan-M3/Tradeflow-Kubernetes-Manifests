@@ -6,6 +6,8 @@ global:
     enabled: true
     className: kgateway
     name: tradeflow-gateway
+  service:
+    type: ClusterIP
 
 # -------------------------
 # MICROSERVICES DEFAULTS
@@ -24,6 +26,9 @@ frontend:
     port: 80
   env:
     PORT: "80"
+
+service:
+  type: ClusterIP
 
 user:
   enabled: true

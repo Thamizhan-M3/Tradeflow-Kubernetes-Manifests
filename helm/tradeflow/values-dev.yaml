@@ -18,6 +18,8 @@ frontend:
       memory: "64Mi"
   service:
     type: ClusterIP
+  env:
+    PORT: "80"
   autoscaling:
     enabled: true
     minReplicas: 2

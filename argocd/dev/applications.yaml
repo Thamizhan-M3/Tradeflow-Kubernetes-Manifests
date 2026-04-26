@@ -347,17 +347,25 @@ kind: Application
 metadata:
   name: tradeflow-dev-gateway
   namespace: argocd
+  labels:
+    app.kubernetes.io/part-of: tradeflow
+    environment: dev
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
     repoURL: https://github.com/Thamizhan-M3/Tradeflow-Kubernetes-Manifests.git
     targetRevision: HEAD
-    path: helm/tradeflow/templates   # adjust path to where gateway.yaml lives
+    path: helm/tradeflow/charts/common
     helm:
       releaseName: tradeflow-dev-gateway
-      valueFiles:
-        - values-dev.yaml
-        - values.yaml   # or values-prod.yaml depending on environment
+      values: |
+        gateway:
+          enabled: true
+          className: kgateway
+        global:
+          environment: dev
   destination:
     server: https://kubernetes.default.svc
     namespace: tradeflow-dev
@@ -365,3 +373,5 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

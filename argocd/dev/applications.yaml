@@ -344,7 +344,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: tradeflow-gateway
+  name: tradeflow-dev-gateway
   namespace: argocd
 spec:
   project: default

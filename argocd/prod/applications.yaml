@@ -309,3 +309,34 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+---
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tradeflow-mongodb-prod
+  namespace: argocd
+  labels:
+    app.kubernetes.io/part-of: tradeflow
+    environment: prod
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Thamizhan-M3/Tradeflow-Kubernetes-Manifests.git
+    targetRevision: HEAD
+    path: helm/tradeflow
+    helm:
+      releaseName: tradeflow-prod-mongodb
+      valuesFiles:
+        - values-prod.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: tradeflow-prod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

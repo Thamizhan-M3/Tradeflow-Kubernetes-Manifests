@@ -12,8 +12,7 @@ metadata:
   labels:
     app.kubernetes.io/part-of: tradeflow
     environment: prod
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
+
 spec:
   project: default
   source:
@@ -47,8 +46,7 @@ metadata:
   labels:
     app.kubernetes.io/part-of: tradeflow
     environment: prod
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
+
 spec:
   project: default
   source:
@@ -82,8 +80,7 @@ metadata:
   labels:
     app.kubernetes.io/part-of: tradeflow
     environment: prod
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
+
 spec:
   project: default
   source:
@@ -117,8 +114,7 @@ metadata:
   labels:
     app.kubernetes.io/part-of: tradeflow
     environment: prod
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
+
 spec:
   project: default
   source:
@@ -152,8 +148,7 @@ metadata:
   labels:
     app.kubernetes.io/part-of: tradeflow
     environment: prod
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
+
 spec:
   project: default
   source:
@@ -186,8 +181,7 @@ metadata:
   labels:
     app.kubernetes.io/part-of: tradeflow
     environment: prod
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
+
 spec:
   project: default
   source:
@@ -236,8 +230,7 @@ metadata:
   labels:
     app.kubernetes.io/part-of: tradeflow
     environment: prod
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
+
 spec:
   project: default
   source:

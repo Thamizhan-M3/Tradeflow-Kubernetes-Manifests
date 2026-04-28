@@ -22,6 +22,7 @@ frontend:
     maxReplicas: 6
     targetCPUUtilizationPercentage: 80
   env:
+    PORT: "80"
     VITE_USERS_API: "/api/users"
     VITE_STOCKS_API: "/api/stocks"
     VITE_TRADES_API: "/api/trades"
@@ -117,6 +118,8 @@ portfolio:
     PORT: "4004"
 
 mongodb:
+  gateway:
+    enabled: false
   architecture: replicaset
   replicaCount: 3
   auth:
@@ -152,6 +155,9 @@ mongodb:
         cpu: "150m"
         memory: "256Mi"
 
-gateway:
-  nodePort: 31871 # Shifted from 31865
-  className: eg
+
+common:
+  gateway:
+    enabled: true
+    className: kgateway
+    nodePort: 31871 # Shifted from 31865

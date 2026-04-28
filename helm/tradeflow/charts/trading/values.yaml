@@ -1,0 +1,15 @@
+
+enabled: true
+routePath: /trades
+probes:
+  path: /health
+  initialDelaySeconds: 60
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+service:
+  type: ClusterIP
+  port: 4003
+env:
+  PORT: "4003"
+routePath: "/api/trades"

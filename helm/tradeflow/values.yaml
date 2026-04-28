@@ -6,6 +6,8 @@ global:
     enabled: true
     className: kgateway
     name: tradeflow-gateway
+  service:
+    type: ClusterIP
 
 # -------------------------
 # MICROSERVICES DEFAULTS
@@ -24,6 +26,10 @@ frontend:
     port: 80
   env:
     PORT: "80"
+    VITE_USERS_API: "/api/users"
+    VITE_STOCKS_API: "/api/stocks"
+    VITE_TRADES_API: "/api/trades"
+    VITE_PORTFOLIO_API: "/api/portfolio"
 
 user:
   enabled: true
@@ -91,9 +97,21 @@ portfolio:
 
 mongodb:
   enabled: true
+  gateway:
+    enabled: false
 
 gateway:
   enabled: true
 
 haproxy:
   enabled: true
+
+# ──────────────────────────────────────────────────────────────
+# COMMON CHART VALUES
+# Gateway is deployed via the common sub-chart.
+# Values here are scoped under 'common' and passed to it.
+# ──────────────────────────────────────────────────────────────
+common:
+  gateway:
+    enabled: true
+    className: kgateway

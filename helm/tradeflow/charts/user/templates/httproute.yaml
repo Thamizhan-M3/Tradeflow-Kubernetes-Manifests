@@ -7,7 +7,7 @@ metadata:
     environment: {{ .Values.global.environment }}
 spec:
   parentRefs:
-    - name: {{ .Release.Name }}-gateway
+    - name: tradeflow-{{ .Values.global.environment }}-gateway-gateway
   rules:
     - matches:
         - path:
